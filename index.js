@@ -9,6 +9,11 @@ const session = require('express-session');
 const loginController = require('./controllers/login');
 const adminCreateInventoryController = require('./controllers/admin/createInventory');
 
+
+const groupController = require('./controllers/group');
+const studentController = require('./controllers/student');
+
+
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 app.use(cookieParser("GTD 5"));
@@ -38,6 +43,12 @@ db.once("open", () => {
 app.get('/', loginController.loginPage);
 
 app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
+
+// groups and student management
+app.get('/addGroup', groupController.show)
+app.post('/addGroup', groupController.addGroup)
+app.get('/addStudent', studentController.show)
+app.post('/addStudent', studentController.addStudent)
 
 app.listen(app.get("port"), () => {
     console.log(`server running`)

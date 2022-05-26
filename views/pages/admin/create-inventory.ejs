@@ -39,12 +39,14 @@
 			<div class="form-group">
 				<br>
 			    <label for="select_group">Виберіть групу:</label>
+				
 			    <select class="form-control" id="select_group">
-			      <option></option>
-			      <option value="КН-11">КН-11</option>
-			      <option value="КН-12">КН-12</option>
-			      <option value="КН-13">КН-13</option>
-			      <option value="КН-14">КН-14</option>
+					<option></option>
+					<% for(j=0; j < groups.length; j++){ %>
+						<option value='<%-groups[j]._id%>'>
+							<%= groups[j].name %>
+						</option>
+					<% } %>
 			   
 			    </select>
 			  </div>
@@ -56,9 +58,12 @@
 				<br>
 			    <label for="select_students">Виберіть студента:</label>
 			    <select class="form-control" id="select_students">
-			      <option></option>
-			      <option value="Іванов Іван Іванович">Іванов Іван Іванович</option>
-			      <option value="Васильов Василь Васильович">Васильов Василь Васильович</option>
+					<option></option>
+					<% for(j=0; j < students.length; j++){ %>
+						<option value='<%-students[j]._id%>'>
+							<%= students[j].name %>
+						</option>
+					<% } %>
 			      
 			    </select>
 			  </div>

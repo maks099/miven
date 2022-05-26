@@ -1,0 +1,13 @@
+<form action="/addStudent" method="post">
+    <input name="login" placeholder="Логін студента" type="text" required minlength="4">
+    <input name="password" placeholder="Пароль студента" type="password" required minlength="4">
+    <input name="name" placeholder="ПІБ" type="text" required minlength="4">
+    <select name="groupId" required>
+        <% for(j=0; j < groups.length; j++){ %>
+            <option value='<%-groups[j]._id%>'>
+                <%= groups[j].name %>
+            </option>
+            <% } %>
+    </select>
+    <input type="submit" value="Додати студента">
+</form>
