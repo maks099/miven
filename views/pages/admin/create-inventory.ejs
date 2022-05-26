@@ -198,20 +198,22 @@
 			$group = $('#select_group').val();
 			$students = $('#select_students').val();
 
-			alert($group);
+			/*($group);
 			alert($students);
-			alert($form_data);
-			/*$.ajax({ 
+			alert($form_data);*/
+			$.ajax({ 
 				url: '/saveAdminForm',        
 				method: 'post',             
 				dataType: 'html',          
 				data: {
-					form_data: $form_data
+					form_data: $form_data,
+					group_id: $group,
+					student_id: $students
 				},    
 				success: function(data){   
 					alert(data);
 				}
-			});   */   
+			});     
 		}
 
 
