@@ -18,6 +18,10 @@ studentSchema = new Schema({
         trim: true,
         required: true
     },
+    groupId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'group'
+    },
     form: {
        type: String
     }
@@ -28,4 +32,4 @@ studentSchema.pre('save', async function(next) {
     next();
 });
 
-module.exports = mongoose.model("worker", studentSchema);
+module.exports = mongoose.model("student", studentSchema);

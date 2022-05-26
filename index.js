@@ -48,6 +48,7 @@ app.get('/admin/create-inventory', adminCreateInventoryController.createInventor
 app.get('/addGroup', groupController.show)
 app.post('/addGroup', groupController.addGroup)
 app.get('/addStudent', studentController.show)
+app.post('/addStudent', studentController.addStudent)
 
 app.listen(app.get("port"), () => {
     console.log(`server running`)
