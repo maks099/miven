@@ -1,0 +1,184 @@
+<%- include('include/header') %>
+
+<style type="text/css">
+	.createInventory{
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	.createInventory .selectType #selectType{
+		border: 1px solid #E7E9EB;
+		padding: 10px;
+	}
+	.createInventory .myBlockForm{
+		margin-top: 50px;
+		border: 1px solid  #E7E9EB;
+		padding: 20px;
+	}
+	.createInventory .clearInForm{
+		position: absolute;
+	    right: 10px;
+	    top: 0px;
+	    cursor: pointer;
+	}
+	.createInventory .clearInForm img{
+		width: 15px;
+	}
+	.createInventory .groupInventory{
+		padding: 10px;
+		border: 1px solid #E7E9EB;
+	}
+</style>
+<div class="container">
+	<div class="createInventory">
+		
+		<div class="fieldsButton">
+			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('type')">Додати текстове поле</button>
+		</div>
+	
+
+				<div class="selectType" style="display:none;">
+						<br>
+				    	<label for="selectType">Виберіть тип поля</label><br>
+				    	<label id="selectType"><input type="radio" value="number" id="type_radio_number" name="type[]"> Числовий <br></label>		
+				    	<label id="selectType"><input type="radio" value="text" id="type_radio_text" name="type[]"> Текстовий</label>
+				    	<br>
+			  			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('inputData')">Далі</button>
+				</div>
+
+
+
+				<div class="inputData" style="display:none;">
+					<br>
+					<label for="nameField">Введіть назву для поля</label><br>
+				    <input type="text" class="form-control" id="nameField" placeholder="Назва питання">
+				    <br>
+					<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('addToForm')">Додати на форму</button>
+				</div>
+
+				<div class="myBlockForm" style="display:none;">
+					<form id="myCustomForm">
+						<h3>Ваша форма:</h3>
+					</form>
+					<button type="button" class="btn btn-primary my-custom-button" id="saveForm" onclick="saveForm()" style="display: none;">Зберегти форму</button>
+				</div>
+<a href=""></a>
+
+	<script type="text/javascript">
+		function addTextField($vals){
+			if($vals == 'type'){
+				$('.selectType').css('display', 'block');
+
+			}else if($vals == 'inputData'){
+
+				if($("#type_radio_number").prop('checked') || $("#type_radio_text").prop('checked')){
+					$('.selectType').css('display', 'none');
+					$('.inputData').css('display', 'block');
+				}else{
+					$("#type_radio_number").parent().css('border', '1px solid red');
+					$("#type_radio_text").parent().css('border', '1px solid red');
+					setTimeout(function() {
+					  $("#type_radio_number").parent().css('border', '1px solid #E7E9EB');
+					  $("#type_radio_text").parent().css('border', '1px solid #E7E9EB');
+					}, 3000);
+				}
+
+			}else if($vals == 'addToForm'){
+
+				if( $('#nameField').val() !== ""){
+
+					$('.selectType').css('display', 'none');
+					$('.inputData').css('display', 'none');
+					$('.myBlockForm').css('display', 'block');
+
+					$name_fiels = $('#nameField').val();
+					$type_fiels = "";
+					$my_form = $('#myCustomForm').html();	
+						if($("#type_radio_number").prop('checked')){
+							$type_fiels = "number";
+							$('#myCustomForm').html($my_form + '<div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
+																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'+
+																				'<label for="pip">'+$name_fiels+'</label>'+
+				    															'<input type="'+$type_fiels+'" class="form-control" id="pip" placeholder="Поле для вводу">'+
+			  																  '</div>');
+							clearFields();
+
+						}else if($("#type_radio_text").prop('checked')){
+							$type_fiels = "text";
+							$('#myCustomForm').html($my_form + '<div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
+																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg" ></div>'+
+																				'<label for="pip">'+$name_fiels+'</label>'+
+				    															'<textarea class="form-control" rows="2" placeholder="Поле для вводу"></textarea>'+
+			  																  '</div>');
+
+
+
+
+
+
+							clearFields();
+						}
+						$('#saveForm').css('display','block');
+				}else{
+					$("#nameField").css('border', '1px solid red');
+					
+					setTimeout(function() {
+					  $("#nameField").css('border', '1px solid #E7E9EB');
+					  
+					}, 3000);
+				}
+
+			}
+
+
+
+
+			
+		}
+
+		function saveForm() {
+			//alert();
+			$form_data = $('#myCustomForm').wrap('<div/>').parent().html();
+			$.ajax({ 
+				url: '/saveAdminForm',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					form_data: $form_data
+				},    
+				success: function(data){   
+					alert(data);
+				}
+			});      
+		}
+
+
+		function clearFields() {
+				 	$('#nameField').val("");
+				 	$("#type_radio_number").attr('checked', false);
+				 	$("#type_radio_text").attr('checked', false);
+		}
+		function  clearInForm($ids) {
+			$my_form = $('#myCustomForm').html();	
+			$id_delete = $($ids).parent().attr('id');
+			$('#'+$id_delete).wrap('<div/>').parent().html("");
+			//alert($id_delete);
+
+
+		}
+
+		function makeid() {
+		  var text = "";
+		  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		  for (var i = 0; i < 8; i++)
+		    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+		  return text;
+}
+
+
+	</script>
+
+	</div>
+
+
+</div>		

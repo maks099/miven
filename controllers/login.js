@@ -1,7 +1,7 @@
 module.exports = {
 
     loginPage: (req, res) => {
-        res.render('pages/login')
+        res.render('pages/index')
     }
 
 }

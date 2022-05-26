@@ -1,3 +1,58 @@
-<% include('../includes/header') %>
+<%- include('../include/header') %>
 
-<% include('../includes/footer') %>
+
+<style type="text/css">
+	.inventory{
+		margin-top: 20px;
+		margin-bottom: 20px;
+		border: 1px solid #E7E9EB;
+		padding: 20px;
+	}
+
+
+
+
+
+</style>
+
+<div class="container">
+	<div class="inventory">
+		<h2>Заповнення анкети</h2>
+	<form>
+		  
+		<!-- ПІБ -->
+		<div class="form-group">
+		    <label for="pip">ПІП</label>
+		    <input type="text" class="form-control" id="pip" aria-describedby="PIP" placeholder="Сергієнко Андрій Степанович">
+		    <small id="PIP" class="form-text text-muted">Прізвище, Ім’я, По-батькові</small>
+	  	</div>
+	  	<!-- ПІБ -->
+
+	  	<!-- курс/група -->
+		<div class="form-row">
+		  <div class="form-group col-md-6">
+		    <label for="course">Курс</label>
+		    <input type="number" class="form-control" id="course" placeholder="1" min="1" max="4">
+		  </div>
+		  <div class="form-group col-md-6">
+		    <label for="group">Група</label>
+		    <input type="text" class="form-control" id="group" placeholder="КН-11">
+		  </div>
+		</div>
+		<!-- курс/група -->
+
+
+
+
+	 
+  	
+
+  		<br>
+  	<button type="submit" class="btn btn-primary my-custom-button">Зберегти</button>
+	</form>
+	</div>
+</div>
+
+
+
+<%- include('../include/footer') %>

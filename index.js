@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session');
 
 const loginController = require('./controllers/login');
-
+const adminCreateInventoryController = require('./controllers/admin/createInventory');
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
@@ -36,6 +36,8 @@ db.once("open", () => {
 
 
 app.get('/', loginController.loginPage);
+
+app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
 
 app.listen(app.get("port"), () => {
     console.log(`server running`)
