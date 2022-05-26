@@ -7,7 +7,12 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session');
 
 const loginController = require('./controllers/login');
-const adminCreateInventoryController = require('./controllers/admin/createInventory');
+//const adminCreateInventoryController = require('./controllers/admin/createInventory');
+
+
+const groupController = require('./controllers/group');
+const studentController = require('./controllers/student');
+
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
@@ -37,7 +42,11 @@ db.once("open", () => {
 
 app.get('/', loginController.loginPage);
 
-app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
+//app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
+
+// groups and student management
+app.get('/addGroup', groupController.show)
+app.post('/addGroup', groupController.addGroup)
 
 app.listen(app.get("port"), () => {
     console.log(`server running`)
