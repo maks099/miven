@@ -25,4 +25,19 @@ module.exports = {
             res.redirect('back');
         })
     },
+
+    saveForm: async(req, res) => {
+        student.findOneAndUpdate({_id: req.body.student_id}, {form: (req.body.form_data).toString()})
+        .then(async() => {
+            // down test code
+            const aStudent = await student.findById(req.body.student_id);
+            res.send(aStudent)
+
+        })
+        .catch((err) => {
+            console.log(err)
+            req.flash("error", err.toString());
+            res.sendStatus(500);
+        })
+    }
 }

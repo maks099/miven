@@ -50,6 +50,11 @@ app.post('/addGroup', groupController.addGroup)
 app.get('/addStudent', studentController.show)
 app.post('/addStudent', studentController.addStudent)
 
+// forms work
+
+app.post('/saveAdminForm', studentController.saveForm)
+
+
 app.listen(app.get("port"), () => {
     console.log(`server running`)
 })
