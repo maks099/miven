@@ -32,9 +32,40 @@
 	<div class="createInventory">
 		
 		<div class="fieldsButton">
-			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('type')">Додати текстове поле</button>
+			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('group')">Додати текстове поле</button>
 		</div>
 	
+		<div class="selectGroup" style="display: none;">
+			<div class="form-group">
+				<br>
+			    <label for="select_group">Виберіть групу:</label>
+			    <select class="form-control" id="select_group">
+			      <option></option>
+			      <option value="КН-11">КН-11</option>
+			      <option value="КН-12">КН-12</option>
+			      <option value="КН-13">КН-13</option>
+			      <option value="КН-14">КН-14</option>
+			   
+			    </select>
+			  </div>
+			  <button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('students')">Далі</button>
+		</div>
+
+		<div class="selectStudents" style="display: none;">
+			<div class="form-group">
+				<br>
+			    <label for="select_students">Виберіть студента:</label>
+			    <select class="form-control" id="select_students">
+			      <option></option>
+			      <option value="Іванов Іван Іванович">Іванов Іван Іванович</option>
+			      <option value="Васильов Василь Васильович">Васильов Василь Васильович</option>
+			      
+			    </select>
+			  </div>
+			  <button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('type')">Далі</button>
+		</div>
+
+
 
 				<div class="selectType" style="display:none;">
 						<br>
@@ -65,8 +96,34 @@
 
 	<script type="text/javascript">
 		function addTextField($vals){
-			if($vals == 'type'){
-				$('.selectType').css('display', 'block');
+			if($vals == 'group'){
+				$('.selectGroup').css('display', 'block');
+
+			}else if($vals == 'students'){
+				if($("#select_group").val() == ""){
+					$("#select_group").css('border', '1px solid red');	
+					setTimeout(function() {
+					  $("#select_group").css('border', '1px solid #E7E9EB');
+					}, 3000);
+				}else{
+					$('.selectStudents').css('display', 'block');
+					$('.selectGroup').css('display', 'none');
+				}
+
+			}else if($vals == 'type'){
+				if($("#select_students").val() == ""){
+					$("#select_students").css('border', '1px solid red');	
+					setTimeout(function() {
+					  $("#select_students").css('border', '1px solid #E7E9EB');
+					}, 3000);
+				}else{
+					$('.selectStudents').css('display', 'none');
+					$('.selectType').css('display', 'block');
+				}
+
+				
+
+
 
 			}else if($vals == 'inputData'){
 
@@ -138,7 +195,13 @@
 		function saveForm() {
 			//alert();
 			$form_data = $('#myCustomForm').wrap('<div/>').parent().html();
-			$.ajax({ 
+			$group = $('#select_group').val();
+			$students = $('#select_students').val();
+
+			alert($group);
+			alert($students);
+			alert($form_data);
+			/*$.ajax({ 
 				url: '/saveAdminForm',        
 				method: 'post',             
 				dataType: 'html',          
@@ -148,7 +211,7 @@
 				success: function(data){   
 					alert(data);
 				}
-			});      
+			});   */   
 		}
 
 

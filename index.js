@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session');
 
 const loginController = require('./controllers/login');
-//const adminCreateInventoryController = require('./controllers/admin/createInventory');
+const adminCreateInventoryController = require('./controllers/admin/createInventory');
 
 
 const groupController = require('./controllers/group');
@@ -42,11 +42,12 @@ db.once("open", () => {
 
 app.get('/', loginController.loginPage);
 
-//app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
+app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
 
 // groups and student management
 app.get('/addGroup', groupController.show)
 app.post('/addGroup', groupController.addGroup)
+app.get('/addStudent', studentController.show)
 
 app.listen(app.get("port"), () => {
     console.log(`server running`)
