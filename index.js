@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session');
 
 const loginController = require('./controllers/login');
+const profileController = require('./controllers/profile');
+
 const adminCreateInventoryController = require('./controllers/admin/createInventory');
 
 
@@ -41,6 +43,7 @@ db.once("open", () => {
 
 
 app.get('/', loginController.loginPage);
+app.get('/profile', profileController.profilePage);
 
 app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
 
