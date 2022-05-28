@@ -1,13 +1,11 @@
-
 const student = require('../models/student.js');
-
-
+const group = require('../models/group.js');
 
 module.exports = {
 
-    profilePage: (req, res) => {
-       // const students = await student.find();
-        res.render('pages/index')
+    profilePage: async(req, res) => {
+        const aStudent = await student.findById(req.user.id).populate({ path: 'groupId', model: group });
+        res.render('pages/index', {student: aStudent})
     }
 
 }

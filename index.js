@@ -6,22 +6,16 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
 
+// controllers
 const loginController = require('./controllers/login');
 const profileController = require('./controllers/profile');
-
-
-
-
 const adminCreateInventoryController = require('./controllers/admin/createInventory');
 const adminMainController = require('./controllers/admin/main');
-
-
-
-
 const groupController = require('./controllers/group');
 const studentController = require('./controllers/student');
+const checkStudent = require('./controllers/checkStudent');
 
-
+// special server settings (PASHA dont touch!!!)
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 app.use(cookieParser("GTD 5"));
@@ -48,14 +42,12 @@ db.once("open", () => {
 });
 
 
+// routes
 app.get('/', loginController.loginPage);
-app.get('/profile', profileController.profilePage);
-
+app.post('/loginStudent', loginController.loginStudent);
+app.get('/profile', checkStudent, profileController.profilePage);
 app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
 app.get('/admin/', adminMainController.viewAllInventory);
-
-
-
 
 // groups and student management
 app.get('/addGroup', groupController.show)
