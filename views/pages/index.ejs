@@ -10,7 +10,7 @@
 	}
 
 	.profile-user{
-		margin-top: 20px;
+		/*margin-top: 20px;*/
 		margin-bottom: 20px;
 		border: 1px solid #E7E9EB;
 		padding: 20px;
@@ -28,15 +28,32 @@
 
 
 	}
-
-
+	#myCustomForm #nameForm{
+		color: #455A64;
+		border-right: 3px solid #83D689;
+		border-left: 3px solid #83D689;
+		padding: 10px;
+		text-align: center;
+	}
+	.newForm{
+		padding: 20px;
+		border: 1px solid #E7E9EB;
+	}
+	#myTitle{
+	border-left: 1px solid #E7E9EB;
+	border-right: 1px solid #E7E9EB;
+	border-top: 1px solid #E7E9EB;
+    margin: 0px;
+    padding: 10px;
+    margin-top: 20px;
+    width: fit-content;
+    border-radius: 10px 10px 0 0;
+	}
 </style>
 
 <div class="container">
-
+	<h3 id="myTitle">Профіль користувача</h3>
 	<div class="profile-user">
-		<h3>Профіль користувача</h3>
-		
 			<div class="block-profile">
 				<div class="row">
 					<div class="col-2 data-user-label">ПІБ:</div><div class="col-10 data-user-text" ><%= student.name %></div>
@@ -62,42 +79,20 @@
 
 
 
-	<div class="inventory">
-		<h2>Заповнення анкети</h2>
+	<div class="inventory" id="inventory" style="display: none;"><%=student.form%></div>	
+		
 
-	<form>
-		  
-		<!-- ПІБ -->
-		<div class="form-group">
-		    <label for="pip">ПІП</label>
-		    <input type="text" class="form-control" id="pip" aria-describedby="PIP" placeholder="Сергієнко Андрій Степанович">
-		    <small id="PIP" class="form-text text-muted">Прізвище, Ім’я, По-батькові</small>
-	  	</div>
-	  	<!-- ПІБ -->
+	<h3 id="myTitle">Ваша анкета</h3>
+	<div class="newForm">
+		
 
-	  	<!-- курс/група -->
-		<div class="form-row">
-		  <div class="form-group col-md-6">
-		    <label for="course">Курс</label>
-		    <input type="number" class="form-control" id="course" placeholder="1" min="1" max="4">
-		  </div>
-		  <div class="form-group col-md-6">
-		    <label for="group">Група</label>
-		    <input type="text" class="form-control" id="group" placeholder="КН-11">
-		  </div>
-		</div>
-		<!-- курс/група -->
-
-
-
-
-	 
-  	
-
-  		<br>
-  	<button type="submit" class="btn btn-primary my-custom-button">Зберегти</button>
-	</form>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.newForm').html($('.inventory').text());
+		});
+	</script>
+
 </div>
 
 
