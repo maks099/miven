@@ -9,7 +9,13 @@ const session = require('express-session');
 const loginController = require('./controllers/login');
 const profileController = require('./controllers/profile');
 
+
+
+
 const adminCreateInventoryController = require('./controllers/admin/createInventory');
+const adminMainController = require('./controllers/admin/main');
+
+
 
 
 const groupController = require('./controllers/group');
@@ -46,6 +52,10 @@ app.get('/', loginController.loginPage);
 app.get('/profile', profileController.profilePage);
 
 app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
+app.get('/admin/', adminMainController.viewAllInventory);
+
+
+
 
 // groups and student management
 app.get('/addGroup', groupController.show)

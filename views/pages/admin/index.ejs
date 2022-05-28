@@ -1,0 +1,139 @@
+<%- include('include/header') %>
+
+<style type="text/css">
+	.filter{
+		margin-top: 20px;
+	}
+	#mainTitle{
+		border-bottom: 3px solid #83D689;
+		padding: 10px;
+		width: fit-content;
+		padding-right: 20px;
+		padding-left: 20px;
+	}
+	select#select_group {
+	width: fit-content;
+	}
+	table {
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+
+	td, th {
+	  border: 1px solid #E7E9EB;
+	  text-align: left;
+	  padding: 8px;
+	}
+
+	tr:nth-child(even) {
+	  background-color: #E7E9EB;
+	}
+	.inventory-table{
+		margin-top: 30px;
+	}
+	.icon-inventory{
+		margin-left: 10px;
+	}
+	.icon-inventory img{
+		width: 20px;
+	}
+
+
+	.custom-button-red{
+		background: #FF8A80;
+		color: white;
+		border: none;
+		outline: none;
+		border-radius: 0px;
+		padding: 10px;
+		padding-right: 40px;
+		padding-left: 40px;
+		font-size: 18px;
+	}
+	.custom-button-blue{
+		background: #455A64;
+		color: white;
+		border: none;
+		outline: none;
+		border-radius: 0px;
+		padding: 10px;
+		padding-right: 40px;
+		padding-left: 40px;
+		font-size: 18px;
+	}
+
+	.custom-button-green{
+		background: #83D689;
+		color: black;
+		border: none;
+		outline: none;
+		border-radius: 0px;
+		padding: 10px;
+		padding-right: 40px;
+		padding-left: 40px;
+		font-size: 18px;
+	}
+
+	
+	.custom-button-green:hover, .custom-button-blue:hover, .custom-button-red:hover{
+			background: #80D8FF;
+			color: black;
+	}
+</style>
+
+
+
+
+<div class="container">
+	<p><h4 id="mainTitle">Всі анкети</h4></p>
+	<!-- <h3>Всі анкети</h3> -->
+	<p>
+		<div class="filter">
+			<!-- <p><h4 id="mainTitle">Фільтр</h4></p> -->
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+					<label>Виберіть групу:</label><br>		
+					<select class="form-control" id="select_group">
+							<option></option>
+							<% for(j=0; j < groups.length; j++){ %>
+								<option value='<%-groups[j]._id%>'>
+									<%= groups[j].name %>
+								</option>
+							<% } %>
+					    </select>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="line-buttons">
+			<button type="button" class="btn btn-primary custom-button-red">Додати анкету</button>
+			<button type="button" class="btn btn-primary custom-button-blue">Всі студенти</button>
+			<button type="button" class="btn btn-primary custom-button-green">Архів анкет</button>
+		</div>
+
+
+		<div class="inventory-table">
+			<table>
+				  <tr>
+				    <th>Назва анкети</th>
+				    <th>ПІП студента</th>
+				    <th>Операції</th>
+				  </tr>
+				  <tr>
+				    <td>Анкета</td>
+				    <td>Антонов Сергій Степанович</td>
+				    <td>
+				    	<div class="inline-flex" style="display: inline-flex;">
+				    		<a href="" class="icon-inventory"><img src="/img/edit.svg"></a>
+				    		<a href="" class="icon-inventory"><img src="/img/delete.svg"></a>
+				    	</div>
+				    </td>
+				  </tr>
+				</table>
+		</div>
+	</p>
+
+
+</div>		
+
