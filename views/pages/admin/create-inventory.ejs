@@ -217,6 +217,13 @@
 			$form_data = $('#myCustomForm').wrap('<div/>').parent().html();
 			$group = $('#select_group').val();
 			$students = $('#select_students').val();
+			$delete_clear = $('#myCustomForm .clearInForm').wrap('<div/>').parent().html();
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "");
+
+
+			$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
+			//alert($delete_clear);
+
 
 			/*($group);
 			alert($students);
@@ -226,7 +233,7 @@
 				method: 'post',             
 				dataType: 'html',          
 				data: {
-					form_data:  $form_data,
+					form_data:  $new_form_data_with_button,
 					//group_id: $group,
 					student_id: $students
 				},    
