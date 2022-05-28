@@ -27,6 +27,13 @@
 		padding: 10px;
 		border: 1px solid #E7E9EB;
 	}
+	.createInventory #myCustomForm #nameForm{
+		color: #455A64;
+		border-right: 3px solid #83D689;
+		border-left: 3px solid #83D689;
+		padding: 10px;
+		text-align: center;
+	}
 </style>
 <div class="container">
 	<div class="createInventory">
@@ -93,11 +100,11 @@
 
 				<div class="myBlockForm" style="display:none;">
 					<form id="myCustomForm">
-						<h3>Ваша форма:</h3>
+						<h3 id="nameForm"></h3><br>
 					</form>
 					<button type="button" class="btn btn-primary my-custom-button" id="saveForm" onclick="saveForm()" style="display: none;">Зберегти форму</button>
 				</div>
-<a href=""></a>
+
 
 	<script type="text/javascript">
 		function addTextField($vals){
@@ -154,7 +161,15 @@
 
 					$name_fiels = $('#nameField').val();
 					$type_fiels = "";
-					$my_form = $('#myCustomForm').html();	
+					$students = $('#select_students').text();
+					$('#myCustomForm #nameForm').html("Анкета для студента: " + $students);	
+					
+
+					$my_form = $('#myCustomForm').html();
+					
+
+
+
 						if($("#type_radio_number").prop('checked')){
 							$type_fiels = "number";
 							$('#myCustomForm').html($my_form + '<div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
