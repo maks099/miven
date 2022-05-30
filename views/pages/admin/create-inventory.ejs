@@ -74,7 +74,7 @@
 			      
 			    </select>
 			  </div>
-			  <button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('type')">Далі</button>
+			  <button type="button" class="btn btn-primary my-custom-button" id="selectStudentsButton" onclick="addTextField('type')">Далі</button>
 		</div>
 
 
@@ -114,6 +114,7 @@
 				$('.selectGroup').css('display', 'block');
 
 			}else if($vals == 'students'){
+				$('#selectStudentsButton').attr('onclick', "addTextField('audit_form')");
 				$('#addFields').css('display', 'none');
 				if($("#select_group").val() == ""){
 					$("#select_group").css('border', '1px solid red');	
@@ -125,6 +126,50 @@
 					$('.selectGroup').css('display', 'none');
 				}
 
+			}else if($vals == 'audit_form'){
+				$('#addFields').css('display', 'none');
+
+				if($("#select_students").val() == ""){
+					$("#select_students").css('border', '1px solid red');	
+					setTimeout(function() {
+					  $("#select_students").css('border', '1px solid #E7E9EB');
+					}, 3000);
+				}else{
+					$('.selectStudents').css('display', 'none');
+					$my_host = window.location.origin;
+					$students_id = $('#select_students :selected').val();
+					
+					$.ajax({ 
+						url: $my_host+'/getStudentById/:student_id?student_id='+$students_id,        
+						method: 'get',             
+						dataType: 'html',          
+						success: function(data){ 
+							$parse_json = JSON.parse(data);
+							//alert($parse_json['form']);
+							if($parse_json['form'] === undefined){
+							}else{
+								$('.myBlockForm').css('display', 'block');
+								$('#addFields').css('display', 'block');
+								$('.selectGroup').css('display', 'none');
+								
+								$('.inputData').css('display', 'none');
+								$('.selectStudents').css('display', 'none');
+								$('#addFields').attr('onclick', "addTextField('type')");
+
+								$('.myBlockForm').html($parse_json['form'].replaceAll("<div id='place_to_clear'></div>", '<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'));
+								
+
+
+
+							}
+							
+						}
+					}); 
+
+				}
+
+				
+
 			}else if($vals == 'type'){
 				$('#addFields').css('display', 'none');
 				if($("#select_students").val() == ""){
@@ -134,6 +179,12 @@
 					}, 3000);
 				}else{
 					$('.selectStudents').css('display', 'none');
+					$('.selectType').css('display', 'none');
+					   
+					
+
+
+
 					$('.selectType').css('display', 'block');
 				}
 
@@ -235,7 +286,7 @@
 			$group = $('#select_group').val();
 			$students = $('#select_students').val();
 			$delete_clear = $('#myCustomForm .clearInForm').wrap('<div/>').parent().html();
-			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "");
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
 
 
 			$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
