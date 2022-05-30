@@ -160,8 +160,9 @@
 					$('.myBlockForm').css('display', 'block');
 
 					$name_fiels = $('#nameField').val();
-					$type_fiels = "";
-					$students = $('#select_students').text();
+					$type_fiels = "";	
+					$students = $('#select_students :selected').text();
+
 					$('#myCustomForm #nameForm').html("Анкета для студента: " + $students);	
 					
 
