@@ -29,7 +29,6 @@ module.exports = {
     saveForm: async(req, res) => {
         student.findOneAndUpdate({_id: req.body.student_id}, {form: (req.body.form_data).toString()})
         .then(async() => {
-            // down test code
             const aStudent = await student.findById(req.body.student_id);
             res.send(aStudent)
 
@@ -38,6 +37,28 @@ module.exports = {
             console.log(err)
             req.flash("error", err.toString());
             res.sendStatus(500);
+        })
+    },
+
+    getById: async (req, res) =>{
+        const student_id = req.query.student_id;
+        student.findById(student_id)
+        .then((aStudent) => {
+            res.status(200).json(aStudent)
+        })
+        .catch((error) => {
+            res.status(500).json(error)
+        })
+    },
+
+    updateForm: async(req, res) => {
+        const {student_id, form_data} = req.body;
+        student.findByIdAndUpdate(student_id, {form: form_data})
+        .then(() => {
+            res.status(200)
+        })
+        .catch((error) => {
+            res.status(500).json(error)
         })
     }
 }
