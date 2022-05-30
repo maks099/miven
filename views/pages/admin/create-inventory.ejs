@@ -39,7 +39,7 @@
 	<div class="createInventory">
 		
 		<div class="fieldsButton">
-			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('group')">Додати текстове поле</button>
+			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('group')" id="addFields">Додати текстове поле</button>
 		</div>
 	
 		<div class="selectGroup" style="display: none;">
@@ -108,10 +108,13 @@
 
 	<script type="text/javascript">
 		function addTextField($vals){
+
 			if($vals == 'group'){
+				$('#addFields').css('display', 'none');
 				$('.selectGroup').css('display', 'block');
 
 			}else if($vals == 'students'){
+				$('#addFields').css('display', 'none');
 				if($("#select_group").val() == ""){
 					$("#select_group").css('border', '1px solid red');	
 					setTimeout(function() {
@@ -123,6 +126,7 @@
 				}
 
 			}else if($vals == 'type'){
+				$('#addFields').css('display', 'none');
 				if($("#select_students").val() == ""){
 					$("#select_students").css('border', '1px solid red');	
 					setTimeout(function() {
@@ -138,7 +142,7 @@
 
 
 			}else if($vals == 'inputData'){
-
+				$('#addFields').css('display', 'none');
 				if($("#type_radio_number").prop('checked') || $("#type_radio_text").prop('checked')){
 					$('.selectType').css('display', 'none');
 					$('.inputData').css('display', 'block');
@@ -205,6 +209,18 @@
 					}, 3000);
 				}
 
+				$('#addFields').attr('onclick', "addTextField('type')");
+				if($("#select_group").val() !== ""){
+					$('.selectGroup').css('display', 'none');
+				}else if($("#select_students").val() !== ""){
+					$('.selectStudents').css('display', 'none');
+				}else if($("#select_group").val() !== "" && $("#select_students").val() !== ""){
+					$('.selectType').css('display', 'block');
+					
+				}
+
+
+
 			}
 
 
@@ -246,6 +262,7 @@
 
 
 		function clearFields() {
+					$('#addFields').css('display', 'block');
 				 	$('#nameField').val("");
 				 	$("#type_radio_number").attr('checked', false);
 				 	$("#type_radio_text").attr('checked', false);
