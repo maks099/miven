@@ -369,8 +369,8 @@
 		}
 		function  clearInForm($ids) {
 			$my_form = $('.myCustomForm').html();	
-			$id_delete = $($ids).parent().attr('id');
-			$('#'+$id_delete).wrap('<div/>').parent().parent().html("");
+			$id_delete = $($ids).parent().parent().attr('id');
+			$('#'+$id_delete).wrap('<div/>').parent().html("");
 			//alert($id_delete);
 
 
