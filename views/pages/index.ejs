@@ -137,8 +137,8 @@
 			$form_data = $('.myCustomForm').wrap('<div/>').parent().html();
 			//$group = $('#select_group').val();
 			//$students = $('#select_students').val();
-			//$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
-			//$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
+			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
 
 
 
@@ -155,7 +155,7 @@
 				method: 'post',             
 				dataType: 'html',          
 				data: {
-					form_data:  $form_data,
+					form_data:  $new_form_data_no_clear,
 					student_id: $('#student_id').val()
 				},    
 				success: function(data){   
