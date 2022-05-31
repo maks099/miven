@@ -37,6 +37,7 @@
 	li.ui-state-default.ui-sortable-handle{
 		list-style: none;
 		margin-top: 20px;
+		cursor: move;
 	}
 </style>
 <div class="container">
@@ -172,7 +173,7 @@
 								$('.myBlockForm').html($parse_json['form'].replaceAll("<div id='place_to_clear'></div>", '<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'));
 								
 
-
+								$("#draggable10").sortable({revert: true});
 
 							}
 							
