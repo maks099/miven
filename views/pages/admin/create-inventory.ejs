@@ -180,7 +180,9 @@
 								$('.selectStudents').css('display', 'none');
 								$('#addFields').attr('onclick', "addTextField('type')");
 
-								$('.myBlockForm').html($parse_json['form'].replaceAll("<div id='place_to_clear'></div>", '<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'));
+								$new_form = $parse_json['form'].replaceAll('<div id="place_to_clear"></div>', '<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>')
+								//alert($new_form);
+								$('.myBlockForm').html($new_form);
 								
 
 								$("#draggable10").sortable({revert: true});
@@ -253,7 +255,7 @@
 						if($("#type_radio_number").prop('checked')){
 							$type_fiels = "number";
 							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle" id="li-'+makeid()+'"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
-																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"  ></div>'+
+																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'+
 																				'<label for="pip">'+$name_fiels+'</label>'+
 				    															'<input type="'+$type_fiels+'" class="form-control" id="pip" placeholder="Поле для вводу" value="" oninput="saveToValue(this, this.value,`number`)">'+
 			  																  '</div></li>');
@@ -262,7 +264,7 @@
 						}else if($("#type_radio_text").prop('checked')){
 							$type_fiels = "text";
 							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle" id="li-'+makeid()+'"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
-																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg" ></div>'+
+																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'+
 																				'<label for="pip">'+$name_fiels+'</label>'+
 				    															'<textarea class="form-control" rows="2" placeholder="Поле для вводу" value="" oninput="saveToValue(this,this.value,`text`)"></textarea>'+
 			  																  '</div></li>');

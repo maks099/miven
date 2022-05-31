@@ -134,16 +134,19 @@
 			//updateform
 		function sendForm() {
 				//alert();
-			$form_data = $('.myCustomForm').wrap('<div/>').parent().html();
+				$form_data = $('.newForm').html();
+				alert($form_data);
+			//$form_data = $('.newForm').wrap('<div/>').parent().html();
+
 			//$group = $('#select_group').val();
 			//$students = $('#select_students').val();
-			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
-			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
+			//$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
+			//$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
 
 
 
 	
-	$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
+	//$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
 			//alert($delete_clear);
 
 
@@ -155,7 +158,7 @@
 				method: 'post',             
 				dataType: 'html',          
 				data: {
-					form_data:  $new_form_data_with_button,
+					form_data:  $form_data,
 					student_id: $('#student_id').val()
 				},    
 				success: function(data){   
