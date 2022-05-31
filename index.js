@@ -54,9 +54,11 @@ app.get('/addGroup', groupController.show)
 app.post('/addGroup', groupController.addGroup)
 app.get('/addStudent', studentController.show)
 app.post('/addStudent', studentController.addStudent)
-/*  new functions   */
 app.get('/getStudentById/:student_id', studentController.getById)
 app.post('/updateStudentForm', studentController.updateForm)
+
+/*  new functions   */
+app.post('/showAllStudentsInGroup', studentController.getByGroupId)
 
 
 // forms work
