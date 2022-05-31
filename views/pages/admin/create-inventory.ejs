@@ -27,17 +27,27 @@
 		padding: 10px;
 		border: 1px solid #E7E9EB;
 	}
-	.createInventory #myCustomForm #nameForm{
+	.createInventory .myCustomForm #nameForm{
 		color: #455A64;
 		border-right: 3px solid #83D689;
 		border-left: 3px solid #83D689;
 		padding: 10px;
 		text-align: center;
 	}
+	li.ui-state-default.ui-sortable-handle{
+		list-style: none;
+		margin-top: 20px;
+	}
 </style>
 <div class="container">
+
+	<script type="text/javascript" src="/js/jquery-ui.js"></script>
 	<div class="createInventory">
-		
+
+
+<script>$(document).ready(function(){$("#draggable10").sortable({revert: true});});</script>
+
+
 		<div class="fieldsButton">
 			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('group')" id="addFields">Додати текстове поле</button>
 		</div>
@@ -99,10 +109,12 @@
 				</div>
 
 				<div class="myBlockForm" style="display:none;">
-					<form id="myCustomForm">
-						<h3 id="nameForm"></h3><br>
-					</form>
-					<button type="button" class="btn btn-primary my-custom-button" id="saveForm" onclick="saveForm()" style="display: none;">Зберегти форму</button>
+					<ul id="draggable10" class="ui-sortable myCustomForm">
+					
+						<h3 id="nameForm"></h3>
+				
+				</ul>
+				<button type="button" class="btn btn-primary my-custom-button" id="saveForm" onclick="saveForm()" style="display: none;">Зберегти форму</button> 
 				</div>
 
 
@@ -147,6 +159,7 @@
 							$parse_json = JSON.parse(data);
 							//alert($parse_json['form']);
 							if($parse_json['form'] === undefined){
+								$('.selectType').css('display', 'block');
 							}else{
 								$('.myBlockForm').css('display', 'block');
 								$('#addFields').css('display', 'block');
@@ -218,30 +231,30 @@
 					$type_fiels = "";	
 					$students = $('#select_students :selected').text();
 
-					$('#myCustomForm #nameForm').html("Анкета для студента: " + $students);	
+					$('.myCustomForm #nameForm').html("Анкета для студента: " + $students);	
 					
 
-					$my_form = $('#myCustomForm').html();
+					$my_form = $('.myCustomForm').html();
 					
 
 
 
 						if($("#type_radio_number").prop('checked')){
 							$type_fiels = "number";
-							$('#myCustomForm').html($my_form + '<div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
+							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
 																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'+
 																				'<label for="pip">'+$name_fiels+'</label>'+
 				    															'<input type="'+$type_fiels+'" class="form-control" id="pip" placeholder="Поле для вводу">'+
-			  																  '</div>');
+			  																  '</div></li>');
 							clearFields();
 
 						}else if($("#type_radio_text").prop('checked')){
 							$type_fiels = "text";
-							$('#myCustomForm').html($my_form + '<div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
+							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
 																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg" ></div>'+
 																				'<label for="pip">'+$name_fiels+'</label>'+
 				    															'<textarea class="form-control" rows="2" placeholder="Поле для вводу"></textarea>'+
-			  																  '</div>');
+			  																  '</div></li>');
 
 
 
@@ -280,22 +293,56 @@
 			
 		}
 
-		function saveForm() {
-			//alert();
-			$form_data = $('#myCustomForm').wrap('<div/>').parent().html();
+		//updateform
+		function sendForm() {
+				//alert();
+			$form_data = $('.myCustomForm').wrap('<div/>').parent().html();
 			$group = $('#select_group').val();
 			$students = $('#select_students').val();
-			$delete_clear = $('#myCustomForm .clearInForm').wrap('<div/>').parent().html();
+			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
 			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
 
 
-			$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
+
+	
+	$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
 			//alert($delete_clear);
 
 
 			/*($group);
 			alert($students);
 			alert($form_data);*/
+			$.ajax({ 
+				url: '/updateStudentForm',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					form_data:  $new_form_data_with_button,
+					//group_id: $group,
+					student_id: $students
+				},    
+				success: function(data){   
+					window.location.reload(); 
+				}
+			});  
+
+		}
+
+
+
+
+
+		function saveForm() {
+			//alert();
+			$form_data = $('.myCustomForm').wrap('<div/>').parent().html();
+			$group = $('#select_group').val();
+			$students = $('#select_students').val();
+			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
+
+
+			$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
+
 			$.ajax({ 
 				url: '/saveAdminForm',        
 				method: 'post',             
@@ -305,8 +352,9 @@
 					//group_id: $group,
 					student_id: $students
 				},    
-				success: function(data){   
-					alert(data);
+				success: function(data){  
+				window.location.reload(); 
+					//alert(data);
 				}
 			});     
 		}
@@ -319,9 +367,9 @@
 				 	$("#type_radio_text").attr('checked', false);
 		}
 		function  clearInForm($ids) {
-			$my_form = $('#myCustomForm').html();	
+			$my_form = $('.myCustomForm').html();	
 			$id_delete = $($ids).parent().attr('id');
-			$('#'+$id_delete).wrap('<div/>').parent().html("");
+			$('#'+$id_delete).wrap('<div/>').parent().parent().html("");
 			//alert($id_delete);
 
 
