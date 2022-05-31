@@ -60,5 +60,16 @@ module.exports = {
         .catch((error) => {
             res.status(500).json(error)
         })
+    },
+
+    getByGroupId: (req, res) => {
+        student.find({groupId: req.body.group_id})
+        .then((students) => {
+            res.status(200).json(students)
+        })
+        .catch((error) => {
+            res.status(500).json(error)
+        })
+
     }
 }
