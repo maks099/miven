@@ -33,11 +33,20 @@
 		border-left: 3px solid #83D689;
 		padding: 10px;
 		text-align: center;
+		pointer-events: none;
 	}
 	li.ui-state-default.ui-sortable-handle{
 		list-style: none;
 		margin-top: 20px;
 		cursor: move;
+	}
+	#draggable10{
+		margin-left: 0px;
+    	padding-left: 0px;	
+	}
+	
+	#draggable10 li{
+		list-style: none;
 	}
 </style>
 <div class="container">
@@ -53,7 +62,7 @@
 			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('group')" id="addFields">Додати текстове поле</button>
 		</div>
 	
-		<div class="selectGroup" style="display: none;">
+		<div class="selectGroup" style="display: block;">
 			<div class="form-group">
 				<br>
 			    <label for="select_group">Виберіть групу:</label>
@@ -120,6 +129,7 @@
 
 
 	<script type="text/javascript">
+		$('#addFields').css('display', 'none');
 		function addTextField($vals){
 
 			if($vals == 'group'){
@@ -170,7 +180,9 @@
 								$('.selectStudents').css('display', 'none');
 								$('#addFields').attr('onclick', "addTextField('type')");
 
-								$('.myBlockForm').html($parse_json['form'].replaceAll("<div id='place_to_clear'></div>", '<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'));
+								$new_form = $parse_json['form'].replaceAll('<div id="place_to_clear"></div>', '<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>')
+								//alert($new_form);
+								$('.myBlockForm').html($new_form);
 								
 
 								$("#draggable10").sortable({revert: true});
@@ -242,19 +254,19 @@
 
 						if($("#type_radio_number").prop('checked')){
 							$type_fiels = "number";
-							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
+							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle" id="li-'+makeid()+'"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
 																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'+
 																				'<label for="pip">'+$name_fiels+'</label>'+
-				    															'<input type="'+$type_fiels+'" class="form-control" id="pip" placeholder="Поле для вводу">'+
+				    															'<input type="'+$type_fiels+'" class="form-control" id="pip" placeholder="Поле для вводу" value="" oninput="saveToValue(this, this.value,`number`)">'+
 			  																  '</div></li>');
 							clearFields();
 
 						}else if($("#type_radio_text").prop('checked')){
 							$type_fiels = "text";
-							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
-																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg" ></div>'+
+							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle" id="li-'+makeid()+'"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
+																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'+
 																				'<label for="pip">'+$name_fiels+'</label>'+
-				    															'<textarea class="form-control" rows="2" placeholder="Поле для вводу"></textarea>'+
+				    															'<textarea class="form-control" rows="2" placeholder="Поле для вводу" value="" oninput="saveToValue(this,this.value,`text`)"></textarea>'+
 			  																  '</div></li>');
 
 
@@ -294,6 +306,19 @@
 			
 		}
 
+
+		function saveToValue($elem,$vals,$type){
+			//alert($vals);
+			if($type == "number"){
+				$($elem).attr('value', $vals);	
+			}else if($type == "text"){
+				$($elem).attr('value', $vals);
+				$($elem).text($vals);
+			}
+
+			
+
+		}
 		//updateform
 		function sendForm() {
 				//alert();
@@ -301,7 +326,7 @@
 			$group = $('#select_group').val();
 			$students = $('#select_students').val();
 			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
-			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, '<div id="place_to_clear"></div>');
 
 
 
@@ -339,7 +364,7 @@
 			$group = $('#select_group').val();
 			$students = $('#select_students').val();
 			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
-			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, '<div id="place_to_clear"></div>');
 
 
 			$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
@@ -370,7 +395,19 @@
 		function  clearInForm($ids) {
 			$my_form = $('.myCustomForm').html();	
 			$id_delete = $($ids).parent().attr('id');
-			$('#'+$id_delete).wrap('<div/>').parent().parent().html("");
+			$code_li = $('#'+$id_delete).parent().prop('outerHTML');
+			$('.myCustomForm').html($my_form.replaceAll($code_li, ''));
+			
+
+			//alert($id_delete);
+			//$('#'+$id_delete).parent().prop('outerHTML').replace('');
+			//alert($('.myCustomForm').wrap('<div/>').parent().html());
+
+
+
+
+			//
+			//$('#'+$id_delete).wrap('<div/>').parent().parent().html("");
 			//alert($id_delete);
 
 

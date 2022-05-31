@@ -49,7 +49,29 @@
     width: fit-content;
     border-radius: 10px 10px 0 0;
 	}
+	 .myCustomForm #nameForm{
+		color: #455A64;
+		border-right: 3px solid #83D689;
+		border-left: 3px solid #83D689;
+		padding: 10px;
+		text-align: center;
+		pointer-events: none;
+	}
+	#draggable10 li{
+		list-style: none;
+	}
+	li.ui-state-default.ui-sortable-handle{
+		list-style: none;
+		margin-top: 20px;
+		cursor: default;
+	}
+	#draggable10{
+		margin-left: 0px;
+    	padding-left: 0px;	
+	}
 
+
+	
 	@media(max-width: 767px){
 	.profile-user .data-user-label{
 		border-right: none;
@@ -87,7 +109,7 @@
 
 	<div class="inventory" id="inventory" style="display: none;"><%=student.form%></div>	
 		
-
+		<input type="hidden" name="" id="student_id" value="<%=student.id%>">
 	<h3 id="myTitle">Ваша анкета</h3>
 	<div class="newForm">
 		
@@ -97,6 +119,58 @@
 		$(document).ready(function(){
 			$('.newForm').html($('.inventory').text());
 		});
+
+
+		function saveToValue($elem,$vals,$type){
+			//alert($vals);
+			if($type == "number"){
+				$($elem).attr('value', $vals);	
+			}else if($type == "text"){
+				$($elem).attr('value', $vals);
+				$($elem).text($vals);
+			}
+		}
+
+			//updateform
+		function sendForm() {
+				//alert();
+				$form_data = $('.newForm').html();
+				alert($form_data);
+			//$form_data = $('.newForm').wrap('<div/>').parent().html();
+
+			//$group = $('#select_group').val();
+			//$students = $('#select_students').val();
+			//$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
+			//$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
+
+
+
+	
+	//$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
+			//alert($delete_clear);
+
+
+			/*($group);
+			alert($students);
+			alert($form_data);*/
+			$.ajax({ 
+				url: '/updateStudentForm',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					form_data:  $form_data,
+					student_id: $('#student_id').val()
+				},    
+				success: function(data){   
+					window.location.reload(); 
+				}
+			});  
+
+		}
+
+
+
+
 	</script>
 
 </div>
