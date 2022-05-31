@@ -33,6 +33,7 @@
 		border-left: 3px solid #83D689;
 		padding: 10px;
 		text-align: center;
+		pointer-events: none;
 	}
 	li.ui-state-default.ui-sortable-handle{
 		list-style: none;
@@ -61,7 +62,7 @@
 			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('group')" id="addFields">Додати текстове поле</button>
 		</div>
 	
-		<div class="selectGroup" style="display: none;">
+		<div class="selectGroup" style="display: block;">
 			<div class="form-group">
 				<br>
 			    <label for="select_group">Виберіть групу:</label>
@@ -128,6 +129,7 @@
 
 
 	<script type="text/javascript">
+		$('#addFields').css('display', 'none');
 		function addTextField($vals){
 
 			if($vals == 'group'){
