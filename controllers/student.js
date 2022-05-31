@@ -31,7 +31,6 @@ module.exports = {
         .then(async() => {
             const aStudent = await student.findById(req.body.student_id);
             res.send(aStudent)
-
         })
         .catch((err) => {
             console.log(err)
@@ -71,5 +70,19 @@ module.exports = {
             res.status(500).json(error)
         })
 
+    },
+
+    clearFormStudents: (req, res) => {
+        const student_id = req.body.student_id;
+        student.findOneAndUpdate({_id: student_id}, {form: ''})
+        .then(() => res.status(200))
+        .catch((err) =>  res.status(500).json(error))
+    },
+
+    showEditPage: (req, res,) => {
+        const student_id = req.query.student_id;
+        student.findById(student_id)
+        .then((student) => res.render('pages/admin/editStudent', {student}))
+        .catch((error) => res.status(500).json(error))
     }
 }
