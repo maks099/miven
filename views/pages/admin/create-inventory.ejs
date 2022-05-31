@@ -326,7 +326,7 @@
 			$group = $('#select_group').val();
 			$students = $('#select_students').val();
 			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
-			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, '<div id="place_to_clear"></div>');
 
 
 
@@ -364,7 +364,7 @@
 			$group = $('#select_group').val();
 			$students = $('#select_students').val();
 			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
-			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, "<div id='place_to_clear'></div>");
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, '<div id="place_to_clear"></div>');
 
 
 			$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
