@@ -14,7 +14,7 @@ const adminMainController = require('./controllers/admin/main');
 const groupController = require('./controllers/group');
 const studentController = require('./controllers/student');
 const checkStudent = require('./controllers/checkStudent');
-const student = require('./models/student');
+const checkTeacher = require('./controllers/checkTeacher');
 
 // special server settings (PASHA dont touch!!!)
 app.use(express.urlencoded({extended: false}));
@@ -45,29 +45,35 @@ db.once("open", () => {
 
 // routes
 app.get('/', loginController.loginPage);
+app.get('/loginTeacher', loginController.teacherLoginPage)
 app.post('/loginStudent', loginController.loginStudent);
+app.post('/loginTeacher', loginController.loginTeacher);
 app.get('/profile', checkStudent, profileController.profilePage);
-app.get('/admin/create-inventory', adminCreateInventoryController.createInventory);
-app.get('/admin/', adminMainController.viewAllInventory);
+app.get('/admin/create-inventory', checkTeacher, adminCreateInventoryController.createInventory);
+app.get('/admin', checkTeacher, adminMainController.viewAllInventory);
 
 // groups and student management
-app.get('/addGroup', groupController.show)
-app.post('/addGroup', groupController.addGroup)
-app.get('/addStudent', studentController.show)
-app.post('/addStudent', studentController.addStudent)
+app.get('/addGroup', checkTeacher, groupController.show)
+app.post('/addGroup', checkTeacher, groupController.addGroup)
+app.get('/addStudent', checkTeacher, studentController.show)
+app.post('/addStudent',  checkTeacher,studentController.addStudent)
 app.get('/getStudentById/:student_id', studentController.getById)
 app.post('/updateStudentForm', studentController.updateForm)
-app.post('/showAllStudentsInGroup', studentController.getByGroupId)
-app.post('/clearFormStudents', studentController.clearFormStudents)
-app.get('/admin/editStudent/:student_id', studentController.showEditPage)
+app.post('/showAllStudentsInGroup', checkTeacher, studentController.getByGroupId)
+app.post('/clearFormStudents', checkTeacher, studentController.clearFormStudents)
+app.get('/admin/editStudent/:student_id', checkTeacher, studentController.showEditPage)
 app.post('/updateStudentData', studentController.updateStudentData)
 
 /* new */
-app.get('/admin/allStudents', studentController.getAll)
-app.post('/deleteStudents', studentController.deleteOne)
+app.get('/admin/allStudents', checkTeacher, studentController.getAll)
+app.post('/deleteStudents', checkTeacher, studentController.deleteOne)
 
 // forms work
-app.post('/saveAdminForm', studentController.saveForm)
+app.post('/saveAdminForm', checkTeacher, studentController.saveForm)
+
+
+/* just for test (DELETE BEFORE ZDACHA) */ 
+app.get('/addTeacher', loginController.addTeacher)
 
 
 app.listen(app.get("port"), () => {

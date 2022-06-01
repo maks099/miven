@@ -1,0 +1,44 @@
+<%- include('../include/header') %>
+<%- include('../include/flash') %>
+<main class="vh-100">
+    <div class="container-fluid container-md h-100 ">
+        <div class="row d-flex justify-content-center align-items-center h-100 ">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                    class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form action="/loginTeacher" method="post">
+                    <div
+                        class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
+                        <h1>Авторизація</h1>
+                    </div>
+
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="form3Example3" name="login" required max="8"  class="form-control form-control-lg"
+                            placeholder="Введіть логін" />
+                        <label class="form-label" for="form3Example3">Логін</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-3">
+                        <input type="password" id="form3Example4" name="password" required max="8"  class="form-control form-control-lg"
+                            placeholder="Введіть пароль" />
+                        <label class="form-label" for="form3Example4">Пароль</label>
+                    </div>
+
+
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <input type="submit" value="Вхід" class="btn btn-primary btn-lg"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+   
+</main>
