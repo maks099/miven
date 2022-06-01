@@ -162,13 +162,14 @@
 					for (var key in $parse_json) {
 					  //console.log(key, ':', $parse_json[key]);
 					  //console.log($parse_json[key]['name'])
-					  if($parse_json[key]['form'] === undefined){
+
+					  if($parse_json[key]['form'] === undefined || $parse_json[key]['form'] == "" ){
 					  	$table += '<tr><td><img src="/img/false.svg" style="width:20px;display:block;margin:auto;"></td>'+
 				    			'<td>'+$parse_json[key]['name']+'</td>'+
 				    			'<td>'+
 							    	'<div class="inline-flex" style="display: inline-flex;">'+
-							    		'<a href="" class="icon-inventory"><img src="/img/edit.svg"></a>'+
-							    		'<a href="javascript:void(0)" onclick="clearFormStudents('+$parse_json[key]['_id']+')" class="icon-inventory"><img src="/img/delete.svg"></a>'+
+							    		'<a href="/admin/editStudent/'+$parse_json[key]['_id']+'" class="icon-inventory"><img src="/img/edit.svg"></a>'+
+							    		'<a href="javascript:void(0)" onclick="clearFormStudents(`'+$parse_json[key]['_id']+'`)" class="icon-inventory"><img src="/img/delete.svg"></a>'+
 							    	'</div>'+
 			    				'</td></tr>';
 					  }else{
@@ -176,8 +177,8 @@
 				    			'<td>'+$parse_json[key]['name']+'</td>'+
 				    			'<td>'+
 							    	'<div class="inline-flex" style="display: inline-flex;">'+
-							    		'<a href="" class="icon-inventory"><img src="/img/edit.svg"></a>'+
-							    		'<a href="javascript:void(0)" onclick="clearFormStudents('+$parse_json[key]['_id']+')" class="icon-inventory"><img src="/img/delete.svg"></a>'+
+							    		'<a href="/admin/editStudent/'+$parse_json[key]['_id']+'" class="icon-inventory"><img src="/img/edit.svg"></a>'+
+							    		'<a href="javascript:void(0)" onclick="clearFormStudents(`'+$parse_json[key]['_id']+'`)" class="icon-inventory"><img src="/img/delete.svg"></a>'+
 							    	'</div>'+
 			    				'</td></tr>';
 					  }
@@ -210,10 +211,10 @@
 				method: 'post',             
 				dataType: 'html',          
 				data: {
-					student_id:  $student_id,
+					student_id:  $student_id
 				},    
-				success: function(data){   
-					alert(data);
+				success: function(){   
+					window.location.reload();
 				}
 			});  
 		}

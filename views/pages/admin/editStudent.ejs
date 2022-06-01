@@ -1,4 +1,44 @@
 <%- include('include/header') %>
-this is an edit page for editing student data (i think, his form)<br>
-current student:<br>
+
+<div class="container">
+	<div class="edit-info-block">
+		<form>
+		
+		  <div class="form-group">
+		    <label for="login">Логін</label>
+		    <input type="text" class="form-control" id="login" placeholder="antonov">
+		  </div>
+		  <div class="form-group">
+		    <label for="password">Пароль</label>
+		    <input type="password" class="form-control" id="password" placeholder="*******">
+		  </div>
+		
+		  <div class="form-group">
+		    <label for="name">ПІБ</label>
+		    <input type="text" class="form-control" id="name" placeholder="Сергієнко Антон Степанович">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="group">Група</label>
+
+		    <!-- <input type="email" class="form-control" id="group" placeholder="antonov"> -->
+		  </div>
+
+		  <div class="form-group">
+		    <label for="group">Анкета</label>
+
+		    <!-- <input type="email" class="form-control" id="group" placeholder="antonov"> -->
+		  </div>
 <%= student.name %>
+
+
+
+
+
+		  <button type="submit" class="btn btn-primary my-custom-button">Змінити</button>
+		</form>
+	
+	</div>
+
+</div>
+<!--  <%=/* student.form*/ %>  -->

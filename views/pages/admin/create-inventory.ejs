@@ -169,7 +169,7 @@
 						success: function(data){ 
 							$parse_json = JSON.parse(data);
 							//alert($parse_json['form']);
-							if($parse_json['form'] === undefined){
+							if($parse_json['form'] === undefined || $parse_json['form'] === ""){
 								$('.selectType').css('display', 'block');
 							}else{
 								$('.myBlockForm').css('display', 'block');
