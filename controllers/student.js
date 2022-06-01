@@ -120,9 +120,13 @@ module.exports = {
                 .catch((error) => {
                     res.status(500).json(error)
                 })
-            }
-          
-          
+            }  
    
+    },
+
+    getAll: async(req, res) => {
+        const groups = await group.find();
+        const students = await student.find();
+        res.render('pages/admin/allStudents', { groups, students });
     }
 }

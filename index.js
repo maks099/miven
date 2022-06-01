@@ -14,6 +14,7 @@ const adminMainController = require('./controllers/admin/main');
 const groupController = require('./controllers/group');
 const studentController = require('./controllers/student');
 const checkStudent = require('./controllers/checkStudent');
+const student = require('./models/student');
 
 // special server settings (PASHA dont touch!!!)
 app.use(express.urlencoded({extended: false}));
@@ -59,10 +60,10 @@ app.post('/updateStudentForm', studentController.updateForm)
 app.post('/showAllStudentsInGroup', studentController.getByGroupId)
 app.post('/clearFormStudents', studentController.clearFormStudents)
 app.get('/admin/editStudent/:student_id', studentController.showEditPage)
-
-/*  new functions   */
 app.post('/updateStudentData', studentController.updateStudentData)
 
+/* new */
+app.get('/admin/allStudents', studentController.getAll)
 
 // forms work
 app.post('/saveAdminForm', studentController.saveForm)
