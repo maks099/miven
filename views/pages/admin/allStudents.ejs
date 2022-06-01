@@ -196,7 +196,7 @@
 		}
 	}
 
-	function deleteStudents($student_id){
+	function deleteStudents($student_id,$group_id){
 		if (window.confirm("Ви дійсно хочете видалити цього студента?")) {
 		 	$.ajax({ 
 				url: '/deleteStudents',        

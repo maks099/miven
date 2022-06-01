@@ -162,10 +162,8 @@
 
 				<div class="myBlockForm" style="display:none;">
 					<ul id="draggable10" class="ui-sortable myCustomForm">
-					
-						<h3 id="nameForm"></h3>
-				
-				</ul>
+						<h3 id="nameForm"></h3>			
+					</ul>
 				
 				</div>
 
@@ -276,22 +274,9 @@
 				
 
 			}else if($vals == 'type'){
-				$('#addFields').css('display', 'none');
-				if($("#select_students").val() == ""){
-					$("#select_students").css('border', '1px solid red');	
-					setTimeout(function() {
-					  $("#select_students").css('border', '1px solid #E7E9EB');
-					}, 3000);
-				}else{
-					$('.selectStudents').css('display', 'none');
-					$('.selectType').css('display', 'none');
-					   
-					
-
-
-
+				
 					$('.selectType').css('display', 'block');
-				}
+				
 
 				
 
@@ -323,8 +308,21 @@
 					$type_fiels = "";	
 					$students = $('#select_students :selected').text();
 
+
+					/*if($('.myCustomForm #draggable10').children().length !== 0){
+						alert(0);
+					}else{
+						alert(1);
+					}*/
+
+
+
+
+
+
 					$('.myCustomForm #nameForm').html("Анкета для студента: " + $("#dataStudents #name").val());	
 					
+
 
 					$my_form = $('.myCustomForm').html();
 					
