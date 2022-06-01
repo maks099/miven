@@ -49,6 +49,47 @@
 	#draggable10 li{
 		list-style: none;
 	}
+	
+	.custom-button-red{
+		background: #FF8A80;
+		color: white;
+		border: none;
+		outline: none;
+		border-radius: 0px;
+		padding: 10px;
+		padding-right: 40px;
+		padding-left: 40px;
+		font-size: 18px;
+	}
+	.custom-button-blue{
+		background: #455A64;
+		color: white;
+		border: none;
+		outline: none;
+		border-radius: 0px;
+		padding: 10px;
+		padding-right: 40px;
+		padding-left: 40px;
+		font-size: 18px;
+	}
+
+	.custom-button-green{
+		background: #83D689;
+		color: black;
+		border: none;
+		outline: none;
+		border-radius: 0px;
+		padding: 10px;
+		padding-right: 40px;
+		padding-left: 40px;
+		font-size: 18px;
+	}
+
+	
+	.custom-button-green:hover, .custom-button-blue:hover, .custom-button-red:hover{
+			background: #80D8FF;
+			color: black;
+	}
 </style>
 	<div class="edit-info-block">
 		<form id="dataStudents">
@@ -94,7 +135,7 @@
 
 
 		<div class="fieldsButton">
-			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('type')" id="addFields">Додати поле в анкету</button>
+			<button type="button" class="btn btn-primary custom-button-green" onclick="addTextField('type')" id="addFields">Додати поле в анкету</button>
 		</div>
 	
 				
