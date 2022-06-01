@@ -54,7 +54,7 @@ module.exports = {
         const {student_id, form_data} = req.body;
         student.findByIdAndUpdate(student_id, {form: form_data})
         .then(() => {
-            res.status(200)
+            res.status(200).send('blm is false')
         })
         .catch((error) => {
             res.status(500).json(error)
@@ -75,8 +75,8 @@ module.exports = {
     clearFormStudents: (req, res) => {
         const student_id = req.body.student_id;
         student.findOneAndUpdate({_id: student_id}, {form: ''})
-        .then(() => res.status(200))
-        .catch((err) =>  res.status(500).json(error))
+        .then(() => res.status(200).send('р. воєнний карабль'))
+        .catch((error) =>  res.status(500).json(error))
     },
 
     showEditPage: (req, res,) => {
