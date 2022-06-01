@@ -49,7 +49,7 @@
 	#draggable10 li{
 		list-style: none;
 	}
-	
+
 	.custom-button-red{
 		background: #FF8A80;
 		color: white;
@@ -269,6 +269,7 @@
 
 					$new_form = $my_form.replaceAll('<div id="place_to_clear"></div>', '<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>')
 					$('.myBlockForm').html($new_form);
+					$('.myCustomForm #nameForm').html("Анкета для студента: " + $("#dataStudents #name").val());	
 
 					
 	
@@ -322,7 +323,7 @@
 					$type_fiels = "";	
 					$students = $('#select_students :selected').text();
 
-					$('.myCustomForm #nameForm').html("Анкета для студента: " + $students);	
+					$('.myCustomForm #nameForm').html("Анкета для студента: " + $("#dataStudents #name").val());	
 					
 
 					$my_form = $('.myCustomForm').html();
