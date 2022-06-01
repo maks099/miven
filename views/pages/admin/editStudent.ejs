@@ -1,21 +1,70 @@
 <%- include('include/header') %>
 
 <div class="container">
+	<style type="text/css">
+	.createInventory{
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	.createInventory .selectType #selectType{
+		border: 1px solid #E7E9EB;
+		padding: 10px;
+	}
+	.createInventory .myBlockForm{
+		margin-top: 50px;
+		border: 1px solid  #E7E9EB;
+		padding: 20px;
+	}
+	.createInventory .clearInForm{
+		position: absolute;
+	    right: 10px;
+	    top: 0px;
+	    cursor: pointer;
+	}
+	.createInventory .clearInForm img{
+		width: 15px;
+	}
+	.createInventory .groupInventory{
+		padding: 10px;
+		border: 1px solid #E7E9EB;
+	}
+	.createInventory .myCustomForm #nameForm{
+		color: #455A64;
+		border-right: 3px solid #83D689;
+		border-left: 3px solid #83D689;
+		padding: 10px;
+		text-align: center;
+		pointer-events: none;
+	}
+	li.ui-state-default.ui-sortable-handle{
+		list-style: none;
+		margin-top: 20px;
+		cursor: move;
+	}
+	#draggable10{
+		margin-left: 0px;
+    	padding-left: 0px;	
+	}
+	
+	#draggable10 li{
+		list-style: none;
+	}
+</style>
 	<div class="edit-info-block">
 		<form>
 		
 		  <div class="form-group">
 		    <label for="login">Логін</label>
-		    <input type="text" class="form-control" id="login" placeholder="antonov">
+		    <input type="text" class="form-control" id="login" placeholder="antonov" value="<%= student.login %>">
 		  </div>
 		  <div class="form-group">
 		    <label for="password">Пароль</label>
-		    <input type="password" class="form-control" id="password" placeholder="*******">
+		    <input type="password" class="form-control" id="password" placeholder="*******" value="<%= student.password %>">
 		  </div>
 		
 		  <div class="form-group">
 		    <label for="name">ПІБ</label>
-		    <input type="text" class="form-control" id="name" placeholder="Сергієнко Антон Степанович">
+		    <input type="text" class="form-control" id="name" placeholder="Сергієнко Антон Степанович" value="<%= student.name %>">
 		  </div>
 
 		  <div class="form-group">
@@ -24,19 +73,346 @@
 		    <!-- <input type="email" class="form-control" id="group" placeholder="antonov"> -->
 		  </div>
 
-		  <div class="form-group">
-		    <label for="group">Анкета</label>
-
-		    <!-- <input type="email" class="form-control" id="group" placeholder="antonov"> -->
-		  </div>
-<%= student.name %>
-
-
-
-
-
-		  <button type="submit" class="btn btn-primary my-custom-button">Змінити</button>
+		   <button type="submit" class="btn btn-primary my-custom-button">Змінити</button>
 		</form>
+
+
+
+		  <div class="form-group">
+		 
+		    <div id="showCodeForm" style="display:none;"><%= student.form %></div>
+
+
+
+		    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+			<div class="createInventory">
+
+
+<script>$(document).ready(function(){$("#draggable10").sortable({revert: true});});</script>
+
+
+		<div class="fieldsButton">
+			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('type')" id="addFields">Додати текстове поле</button>
+		</div>
+	
+				
+				<input type="hidden" name="" id="select_students" value="<%= student.id %>">
+
+						<div class="selectType" style="display:none;">
+						<br>
+				    	<label for="selectType">Виберіть тип поля</label><br>
+				    	<label id="selectType"><input type="radio" value="number" id="type_radio_number" name="type[]"> Числовий <br></label>		
+				    	<label id="selectType"><input type="radio" value="text" id="type_radio_text" name="type[]"> Текстовий</label>
+				    	<br>
+			  			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('inputData')">Далі</button>
+				</div>
+
+
+
+				<div class="inputData" style="display:none;">
+					<br>
+					<label for="nameField">Введіть назву для поля</label><br>
+				    <input type="text" class="form-control" id="nameField" placeholder="Назва питання">
+				    <br>
+					<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('addToForm')">Додати на форму</button>
+				</div>
+
+				<div class="myBlockForm" style="display:none;">
+					<ul id="draggable10" class="ui-sortable myCustomForm">
+					
+						<h3 id="nameForm"></h3>
+				
+				</ul>
+				<!-- <button type="button" class="btn btn-primary my-custom-button" id="saveForm" onclick="saveForm()" style="display: none;">Зберегти форму</button> --> 
+				</div>
+
+
+	<script type="text/javascript">
+		//$('#addFields').css('display', 'none');
+		addTextField('audit_form');
+		function addTextField($vals){
+
+			/*if($vals == 'group'){
+				$('#addFields').css('display', 'none');
+				$('.selectGroup').css('display', 'block');
+
+			}else if($vals == 'students'){
+				$('#selectStudentsButton').attr('onclick', "addTextField('audit_form')");
+				$('#addFields').css('display', 'none');
+				if($("#select_group").val() == ""){
+					$("#select_group").css('border', '1px solid red');	
+					setTimeout(function() {
+					  $("#select_group").css('border', '1px solid #E7E9EB');
+					}, 3000);
+				}else{
+					$('.selectStudents').css('display', 'block');
+					$('.selectGroup').css('display', 'none');
+				}
+
+			}else*/
+
+			 if($vals == 'audit_form'){
+
+
+					$('#addFields').css('display', 'block');
+					$('.myBlockForm').css('display', 'block');
+					$my_form = $('#showCodeForm').text();
+
+					$new_form = $my_form.replaceAll('<div id="place_to_clear"></div>', '<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>')
+					$('.myBlockForm').html($new_form);
+
+					
+	
+				
+
+			}else if($vals == 'type'){
+				$('#addFields').css('display', 'none');
+				if($("#select_students").val() == ""){
+					$("#select_students").css('border', '1px solid red');	
+					setTimeout(function() {
+					  $("#select_students").css('border', '1px solid #E7E9EB');
+					}, 3000);
+				}else{
+					$('.selectStudents').css('display', 'none');
+					$('.selectType').css('display', 'none');
+					   
+					
+
+
+
+					$('.selectType').css('display', 'block');
+				}
+
+				
+
+
+
+			}else if($vals == 'inputData'){
+				$('#addFields').css('display', 'none');
+				if($("#type_radio_number").prop('checked') || $("#type_radio_text").prop('checked')){
+					$('.selectType').css('display', 'none');
+					$('.inputData').css('display', 'block');
+				}else{
+					$("#type_radio_number").parent().css('border', '1px solid red');
+					$("#type_radio_text").parent().css('border', '1px solid red');
+					setTimeout(function() {
+					  $("#type_radio_number").parent().css('border', '1px solid #E7E9EB');
+					  $("#type_radio_text").parent().css('border', '1px solid #E7E9EB');
+					}, 3000);
+				}
+
+			}else if($vals == 'addToForm'){
+
+				if( $('#nameField').val() !== ""){
+
+					$('.selectType').css('display', 'none');
+					$('.inputData').css('display', 'none');
+					$('.myBlockForm').css('display', 'block');
+
+					$name_fiels = $('#nameField').val();
+					$type_fiels = "";	
+					$students = $('#select_students :selected').text();
+
+					$('.myCustomForm #nameForm').html("Анкета для студента: " + $students);	
+					
+
+					$my_form = $('.myCustomForm').html();
+					
+
+
+
+						if($("#type_radio_number").prop('checked')){
+							$type_fiels = "number";
+							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle" id="li-'+makeid()+'"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
+																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'+
+																				'<label for="pip">'+$name_fiels+'</label>'+
+				    															'<input type="'+$type_fiels+'" class="form-control" id="pip" placeholder="Поле для вводу" value="" oninput="saveToValue(this, this.value,`number`)">'+
+			  																  '</div></li>');
+							clearFields();
+
+						}else if($("#type_radio_text").prop('checked')){
+							$type_fiels = "text";
+							$('.myCustomForm').html($my_form + '<li class="ui-state-default ui-sortable-handle" id="li-'+makeid()+'"><div class="form-group groupInventory" style="position:relative;" id="'+makeid()+'">'+
+																				'<div class="clearInForm" onclick="clearInForm(this)"><img src="/img/clear.svg"></div>'+
+																				'<label for="pip">'+$name_fiels+'</label>'+
+				    															'<textarea class="form-control" rows="2" placeholder="Поле для вводу" value="" oninput="saveToValue(this,this.value,`text`)"></textarea>'+
+			  																  '</div></li>');
+
+
+
+
+
+
+							clearFields();
+						}
+						$('#saveForm').css('display','block');
+				}else{
+					$("#nameField").css('border', '1px solid red');
+					
+					setTimeout(function() {
+					  $("#nameField").css('border', '1px solid #E7E9EB');
+					  
+					}, 3000);
+				}
+
+				$('#addFields').attr('onclick', "addTextField('type')");
+				if($("#select_group").val() !== ""){
+					$('.selectGroup').css('display', 'none');
+				}else if($("#select_students").val() !== ""){
+					$('.selectStudents').css('display', 'none');
+				}else if($("#select_group").val() !== "" && $("#select_students").val() !== ""){
+					$('.selectType').css('display', 'block');
+					
+				}
+
+
+
+			}
+
+
+
+
+			
+		}
+
+
+		function saveToValue($elem,$vals,$type){
+			//alert($vals);
+			if($type == "number"){
+				$($elem).attr('value', $vals);	
+			}else if($type == "text"){
+				$($elem).attr('value', $vals);
+				$($elem).text($vals);
+			}
+
+			
+
+		}
+		//updateform
+		function sendForm() {
+				//alert();
+			$form_data = $('.myCustomForm').wrap('<div/>').parent().html();
+			$group = $('#select_group').val();
+			$students = $('#select_students').val();
+			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, '<div id="place_to_clear"></div>');
+
+
+
+	
+	$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
+			//alert($delete_clear);
+
+
+			/*($group);
+			alert($students);
+			alert($form_data);*/
+			$.ajax({ 
+				url: '/updateStudentForm',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					form_data:  $new_form_data_with_button,
+					//group_id: $group,
+					student_id: $students
+				},    
+				success: function(data){   
+					window.location.reload(); 
+				}
+			});  
+
+		}
+
+
+
+
+
+		function saveForm() {
+			//alert();
+			$form_data = $('.myCustomForm').wrap('<div/>').parent().html();
+		
+			$students = $('#select_students').val();
+			$delete_clear = $('.myCustomForm .clearInForm').wrap('<div/>').parent().html();
+			$new_form_data_no_clear = $form_data.replaceAll($delete_clear, '<div id="place_to_clear"></div>');
+
+
+			$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
+
+			$.ajax({ 
+				url: '/saveAdminForm',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					form_data:  $new_form_data_with_button,
+					
+					student_id: $students
+				},    
+				success: function(data){  
+				window.location.reload(); 
+					//alert(data);
+				}
+			});     
+		}
+
+
+		function clearFields() {
+					$('#addFields').css('display', 'block');
+				 	$('#nameField').val("");
+				 	$("#type_radio_number").attr('checked', false);
+				 	$("#type_radio_text").attr('checked', false);
+		}
+		function  clearInForm($ids) {
+			$my_form = $('.myCustomForm').html();	
+			$id_delete = $($ids).parent().attr('id');
+			$code_li = $('#'+$id_delete).parent().prop('outerHTML');
+			$('.myCustomForm').html($my_form.replaceAll($code_li, ''));
+			
+
+			//alert($id_delete);
+			//$('#'+$id_delete).parent().prop('outerHTML').replace('');
+			//alert($('.myCustomForm').wrap('<div/>').parent().html());
+
+
+
+
+			//
+			//$('#'+$id_delete).wrap('<div/>').parent().parent().html("");
+			//alert($id_delete);
+
+
+		}
+
+		function makeid() {
+		  var text = "";
+		  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		  for (var i = 0; i < 8; i++)
+		    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+		  return text;
+}
+
+
+	</script>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		 
 	
 	</div>
 
