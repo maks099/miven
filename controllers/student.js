@@ -88,23 +88,30 @@ module.exports = {
     },
 
     updateStudentData: async (req, res) => {
-        try {
             const {
                 student_id,
                 login,
                 password,
                 name
             } = req.body;
+            console.log(student_id)
+            console.log(login)
+            console.log(password)
+            console.log(name)
             const newPass = await bcrypt.hash(password, 10);
             student.findByIdAndUpdate(student_id,
                 {
-                    'name': name,
-                    'login': login,
-                    'password': newPass
+                    name: name,
+                    login: login,
+                    password: newPass
                 })
-            res.status(200).send('catch me')
-        } catch (error) {
-            res.status(500).json(error)
-        }
+            .then(() => {
+                res.status(200).send('catch me')
+            })
+            .catch((error) => {
+                res.status(500).json(error)
+            })
+          
+   
     }
 }
