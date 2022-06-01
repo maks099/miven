@@ -164,7 +164,7 @@
 					<ul id="draggable10" class="ui-sortable myCustomForm">
 						<h3 id="nameForm"></h3>			
 					</ul>
-				
+				<button type="button" class="btn btn-primary my-custom-button" id="saveForm" onclick="saveForm()" style="display: none;">Зберегти форму</button> 
 				</div>
 
 
@@ -309,11 +309,14 @@
 					$students = $('#select_students :selected').text();
 
 
-					/*if($('.myCustomForm #draggable10').children().length !== 0){
-						alert(0);
+
+				
+					if($('.myBlockForm').html().length>0){
+					
 					}else{
-						alert(1);
-					}*/
+						$('.myBlockForm').html('<ul id="draggable10" class="ui-sortable myCustomForm"><h3 id="nameForm"></h3></ul><button type="button" class="btn btn-primary my-custom-button" id="saveForm" onclick="saveForm()" style="display: none;">Зберегти форму</button>'
+							);
+					}
 
 
 
