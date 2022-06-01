@@ -57,19 +57,25 @@
 		    <label for="login">Логін</label>
 		    <input type="text" class="form-control" id="login" placeholder="antonov" value="<%= student.login %>">
 		  </div>
-		  <div class="form-group">
-		    <label for="password">Пароль</label>
-		    <input type="password" class="form-control" id="password" placeholder="*******" value="<%= student.password %>">
-		  </div>
-		
+	
 		  <div class="form-group">
 		    <label for="name">ПІБ</label>
 		    <input type="text" class="form-control" id="name" placeholder="Сергієнко Антон Степанович" value="<%= student.name %>">
 		  </div>
-
+		  <div class="form-group">
+		  	<a href="javascript:void(0)" onclick="showInputPassword()">Змінити пароль?</a>
+		  </div>
+		  
+		  <div class="form-password" style="display: none;">
+		  	<div class="form-group">
+		    	<label for="password">Введіть новий пароль</label>
+		    	<input type="password" class="form-control" id="password" placeholder="*******">
+		 	</div>
+		  </div>
+		  
 		 
 
-		   <button type="button" class="btn btn-primary my-custom-button" onclick="editDataStudents();">Змінити</button>
+		   <button type="button" class="btn btn-primary my-custom-button" onclick="editDataStudents();">Змінити дані студента</button>
 		</form>
 
 
@@ -125,6 +131,9 @@
 
 	<script type="text/javascript">
 
+		function showInputPassword(){
+			$('.form-password').css('display','block');
+		}
 		function editDataStudents(){
 
 			if($("#dataStudents #login").val() == ""){
@@ -132,31 +141,53 @@
 				setTimeout(function() {
 				  $("#dataStudents #login").css('border', '1px solid #E7E9EB');
 				}, 3000);
-			}else if($("#dataStudents #password").val() == ""){
-				$("#dataStudents #password").css('border', '1px solid red');	
-				setTimeout(function() {
-				  $("#dataStudents #password").css('border', '1px solid #E7E9EB');
-				}, 3000);
 			}else if($("#dataStudents #name").val() == ""){
 				$("#dataStudents #name").css('border', '1px solid red');	
 				setTimeout(function() {
 				  $("#dataStudents #name").css('border', '1px solid #E7E9EB');
 				}, 3000);
 			}else{
-				$.ajax({ 
-				url: '/updateStudentData',        
-				method: 'post',             
-				dataType: 'html',          
-				data: {
-					student_id:  $('#select_students').val(),
-					login: $('#dataStudents #login').val(),
-					password: $('#dataStudents #password').val(),
-					name: $('#dataStudents #name').val()
-				},    
-				success: function(data){   
-					window.location.reload(); 
+				if($('.form-password').css('display') == 'block'){
+					if($("#dataStudents #password").val() == ""){
+						$("#dataStudents #password").css('border', '1px solid red');	
+						setTimeout(function() {
+						  $("#dataStudents #password").css('border', '1px solid #E7E9EB');
+						}, 3000);
+					}else{
+						$.ajax({ 
+						url: '/updateStudentData',        
+						method: 'post',             
+						dataType: 'html',          
+						data: {
+							student_id:  $('#select_students').val(),
+							login: $('#dataStudents #login').val(),
+							password: $('#dataStudents #password').val(),
+							name: $('#dataStudents #name').val()
+						},    
+						success: function(data){   
+							window.location.reload(); 
+						}
+					});	
+					}
+
+				}else{
+					$.ajax({ 
+						url: '/updateStudentData',        
+						method: 'post',             
+						dataType: 'html',          
+						data: {
+							student_id:  $('#select_students').val(),
+							login: $('#dataStudents #login').val(),
+							password: "old",
+							name: $('#dataStudents #name').val()
+						},    
+						success: function(data){   
+							window.location.reload(); 
+						}
+					});	
 				}
-			});
+
+				
 			}
 
 
