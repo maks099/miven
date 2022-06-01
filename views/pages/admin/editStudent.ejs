@@ -51,7 +51,7 @@
 	}
 </style>
 	<div class="edit-info-block">
-		<form>
+		<form id="dataStudents">
 		
 		  <div class="form-group">
 		    <label for="login">Логін</label>
@@ -67,13 +67,9 @@
 		    <input type="text" class="form-control" id="name" placeholder="Сергієнко Антон Степанович" value="<%= student.name %>">
 		  </div>
 
-		  <div class="form-group">
-		    <label for="group">Група</label>
+		 
 
-		    <!-- <input type="email" class="form-control" id="group" placeholder="antonov"> -->
-		  </div>
-
-		   <button type="submit" class="btn btn-primary my-custom-button">Змінити</button>
+		   <button type="button" class="btn btn-primary my-custom-button" onclick="editDataStudents();">Змінити</button>
 		</form>
 
 
@@ -92,7 +88,7 @@
 
 
 		<div class="fieldsButton">
-			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('type')" id="addFields">Додати текстове поле</button>
+			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('type')" id="addFields">Додати поле в анкету</button>
 		</div>
 	
 				
@@ -123,11 +119,52 @@
 						<h3 id="nameForm"></h3>
 				
 				</ul>
-				<!-- <button type="button" class="btn btn-primary my-custom-button" id="saveForm" onclick="saveForm()" style="display: none;">Зберегти форму</button> --> 
+				
 				</div>
 
 
 	<script type="text/javascript">
+
+		function editDataStudents(){
+
+			if($("#dataStudents #login").val() == ""){
+				$("#dataStudents #login").css('border', '1px solid red');	
+				setTimeout(function() {
+				  $("#dataStudents #login").css('border', '1px solid #E7E9EB');
+				}, 3000);
+			}else if($("#dataStudents #password").val() == ""){
+				$("#dataStudents #password").css('border', '1px solid red');	
+				setTimeout(function() {
+				  $("#dataStudents #password").css('border', '1px solid #E7E9EB');
+				}, 3000);
+			}else if($("#dataStudents #name").val() == ""){
+				$("#dataStudents #name").css('border', '1px solid red');	
+				setTimeout(function() {
+				  $("#dataStudents #name").css('border', '1px solid #E7E9EB');
+				}, 3000);
+			}else{
+				$.ajax({ 
+				url: '/updateStudentData',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					student_id:  $('#select_students').val(),
+					login: $('#select_students').val(),
+					password: $('#dataStudents #password').val(),
+					name: $('#dataStudents #name').val()
+				},    
+				success: function(data){   
+					window.location.reload(); 
+				}
+			});
+			}
+
+
+			}
+
+
+
+
 		//$('#addFields').css('display', 'none');
 		addTextField('audit_form');
 		function addTextField($vals){
@@ -301,12 +338,7 @@
 
 	
 	$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
-			//alert($delete_clear);
-
-
-			/*($group);
-			alert($students);
-			alert($form_data);*/
+			
 			$.ajax({ 
 				url: '/updateStudentForm',        
 				method: 'post',             
