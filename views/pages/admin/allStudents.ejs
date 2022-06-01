@@ -232,19 +232,10 @@
 					if($parse_json['form'] === undefined || $parse_json['form'] === ""){
 
 					}else{
-						//alert( $parse_json['name']);
-						$('#saveForm').html($parse_json['form']);
-						$all_answer = "";
-						//$my_obj = "[{"
-						var jsonObj = {};
-
-						
-						var jsonFileContent = '[]';
-
-						var jsonObj = new Array();	
 					
-
-						var jsonArr = [];
+						$('#saveForm').html($parse_json['form']);
+						
+					
 
 
 						$('#saveForm .groupInventory').each(function() {
@@ -262,33 +253,15 @@
 							if($answer_textarea === undefined){
 								$answer_textarea = "";
 							}
-							/*jsonArr.push({
-						        $question: $answer_input + $answer_textarea
-						       
-						    });*/
-
-							//let new_obj = {};
-							//$all_answer += "Питання: " + $question + ' \n Відповідь студента: ' + $answer_input + $answer_textarea + '\n';
-							//$my_obj += $question + ':' + $answer_input + $answer_textarea;
-							//obj[$question] $answer_input + $answer_textarea;
-							//new_obj[$question] = $answer_input + $answer_textarea;
-							//jsonObj.push(new_obj);
+						
 						});	
-						//$my_obj += "}]";
+						
 						
 						
 
 
-						someJSONdata = [
-						    {
-						       name: 'John Doe',
-						       email: 'john@doe.com'
-						       
-						    }
-						 ]
-						 //JSON.stringify
-						console.log(jsonArr);
-						console.log(someJSONdata);
+					
+						 
 
 						printJS({ printable: 'draggable10', type: 'html'})
 						
