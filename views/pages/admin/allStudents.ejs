@@ -1,1 +1,236 @@
 <%- include('include/header') %>
+
+<style type="text/css">
+	.filter{
+		margin-top: 20px;
+	}
+	#mainTitle{
+		border-bottom: 3px solid #83D689;
+		padding: 10px;
+		width: fit-content;
+		padding-right: 20px;
+		padding-left: 20px;
+	}
+	select#select_group {
+	width: fit-content;
+	}
+	table {
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+
+	td, th {
+	  border: 1px solid #E7E9EB;
+	  text-align: left;
+	  padding: 8px;
+	}
+
+	tr:nth-child(even) {
+	  background-color: #E7E9EB;
+	}
+	.inventory-table{
+		margin-top: 30px;
+	}
+	.icon-inventory{
+		margin-left: 10px;
+	}
+	.icon-inventory img{
+		width: 20px;
+	}
+
+
+	.custom-button-red{
+		background: #FF8A80;
+		color: white;
+		border: none;
+		outline: none;
+		border-radius: 0px;
+		padding: 10px;
+		padding-right: 40px;
+		padding-left: 40px;
+		font-size: 18px;
+	}
+	.custom-button-blue{
+		background: #455A64;
+		color: white;
+		border: none;
+		outline: none;
+		border-radius: 0px;
+		padding: 10px;
+		padding-right: 40px;
+		padding-left: 40px;
+		font-size: 18px;
+	}
+
+	.custom-button-green{
+		background: #83D689;
+		color: black;
+		border: none;
+		outline: none;
+		border-radius: 0px;
+		padding: 10px;
+		padding-right: 40px;
+		padding-left: 40px;
+		font-size: 18px;
+	}
+
+	
+	.custom-button-green:hover, .custom-button-blue:hover, .custom-button-red:hover{
+			background: #80D8FF;
+			color: black;
+	}
+</style>
+
+
+
+
+<div class="container">
+	<br>
+		<div class="line-buttons" style="float:right;">
+			<a href="/admin/create-inventory" class="btn btn-primary custom-button-red">Додати анкету</a>
+			<a href="/admin/allStudents" class="btn btn-primary custom-button-blue">Всі студенти</a>
+			<a href="" class="btn btn-primary custom-button-green">Архів анкет</a>
+
+		</div>
+
+
+
+	<p><h4 id="mainTitle">Всі студенти</h4></p>
+	
+	<p>
+		<div class="filter">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+					<label>Виберіть групу:</label><br>		
+					<select class="form-control" id="select_group" onchange="selectGroup(this.value)">
+							<option></option>
+							<% for(j=0; j < groups.length; j++){ %>
+								<option value='<%-groups[j]._id%>' >
+									<%= groups[j].name %>
+								</option>
+							<% } %>
+					    </select>
+				</div>
+			</div>
+		</div>
+		<hr>
+	
+
+
+		<div class="inventory-table" style="display:none;">
+		</div>
+
+
+
+	</p>
+
+
+
+
+<script type="text/javascript">
+	function selectGroup($ids){
+		if($ids !== ""){
+			$.ajax({ 
+				url: '/showAllStudentsInGroup',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					group_id:  $ids,
+				},    
+				success: function(data){   
+					//отримуємо всі анкети по групі
+					$parse_json = JSON.parse(data);
+					$table = '<table>' +
+				  				'<tr>' + 
+				    				
+				    				'<th>ПІБ студента</th>' +
+				    				'<th>Операції</th>' +
+				  				'</tr>';
+					for (var key in $parse_json) {
+					  //console.log(key, ':', $parse_json[key]);
+					  //console.log($parse_json[key]['name'])
+
+					  if($parse_json[key]['form'] === undefined || $parse_json[key]['form'] == "" ){
+					  	$table += '<tr>'+
+				    			'<td>'+$parse_json[key]['name']+'</td>'+
+				    			'<td>'+
+							    	'<div class="inline-flex" style="display: inline-flex;">'+
+							    		'<a href="/admin/editStudent/student_id?student_id='+$parse_json[key]['_id']+'" class="icon-inventory" title="Редагувати дані студента"><img src="/img/edit.svg"></a>'+
+							    		'<a href="javascript:void(0)" onclick="deleteStudents(`'+$parse_json[key]['_id']+'`, `'+$parse_json[key]['groupId']+'`)" class="icon-inventory" title="Видалити дані студента"><img src="/img/delete.svg"></a>'+
+							    		'<a href="javascript:void(0)" onclick="" class="icon-inventory" title="В архів"><img src="/img/archive.svg" style="width:17px;"></a>'+
+							    		'<a href="javascript:void(0)" onclick="" class="icon-inventory" title="Зберегти дані"><img src="/img/save.svg" ></a>'+
+							    	'</div>'+
+			    				'</td></tr>';
+					  }else{
+					  	 $table += '<tr>'+
+				    			'<td>'+$parse_json[key]['name']+'</td>'+
+				    			'<td>'+
+							    	'<div class="inline-flex" style="display: inline-flex;">'+
+							    		'<a href="/admin/editStudent/student_id?student_id='+$parse_json[key]['_id']+'" class="icon-inventory" title="Редагувати дані студента"><img src="/img/edit.svg"></a>'+
+							    		'<a href="javascript:void(0)" onclick="deleteStudents(`'+$parse_json[key]['_id']+'`, `'+$parse_json[key]['groupId']+'`)" class="icon-inventory" title="Видалити дані студента"><img src="/img/delete.svg"></a>'+
+							    		'<a href="javascript:void(0)" onclick="" class="icon-inventory" title="В архів"><img src="/img/archive.svg" style="width:17px;"></a>'+
+							    		'<a href="javascript:void(0)" onclick="" class="icon-inventory" title="Зберегти дані"><img src="/img/save.svg"></a>'+
+							    	'</div>'+
+			    				'</td></tr>';
+					  }
+					 
+					}
+
+					$table += '</table>';
+
+					$('.inventory-table').css('display','block');	
+					$('.inventory-table').html($table);	
+					
+
+
+
+				}
+			});  
+		}
+	}
+
+	function deleteStudents($student_id){
+		if (window.confirm("Ви дійсно хочете видалити цього студента?")) {
+		 	$.ajax({ 
+				url: '/deleteStudents',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					student_id:  $student_id
+				},    
+				success: function(){  
+				 	selectGroup($group_id);
+
+					
+				}
+			});  
+		}
+	}
+
+
+	
+
+	/*function clearFormStudents($student_id, $group_id){
+
+		if (window.confirm("Ви дійсно хочете видалити анкету цього студента?")) {
+		 	$.ajax({ 
+				url: '/clearFormStudents',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					student_id:  $student_id
+				},    
+				success: function(){  
+				 	selectGroup($group_id);
+
+					//window.location.reload();
+				}
+			});  
+		}
+		
+	}*/
+</script>
+
+</div>		
+

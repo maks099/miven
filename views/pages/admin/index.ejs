@@ -86,6 +86,20 @@
 
 
 <div class="container">
+	<br>
+		<div class="line-buttons" style="float:right;">
+			<a href="/admin/create-inventory" class="btn btn-primary custom-button-red">Додати анкету</a>
+			<a href="/admin/allStudents" class="btn btn-primary custom-button-blue">Всі студенти</a>
+			<a href="" class="btn btn-primary custom-button-green">Архів анкет</a>
+
+
+			<!-- <button type="button" class="">Додати анкету</button>
+			<button type="button" class="btn btn-primary custom-button-blue">Всі студенти</button>
+			<button type="button" class="btn btn-primary custom-button-green">Архів анкет</button> -->
+		</div>
+
+
+
 	<p><h4 id="mainTitle">Всі анкети</h4></p>
 	<!-- <h3>Всі анкети</h3> -->
 	<p>
@@ -106,16 +120,7 @@
 			</div>
 		</div>
 		<hr>
-		<div class="line-buttons">
-			<a href="/admin/create-inventory" class="btn btn-primary custom-button-red">Додати анкету</a>
-			<a href="" class="btn btn-primary custom-button-blue">Всі студенти</a>
-			<a href="" class="btn btn-primary custom-button-green">Архів анкет</a>
-
-
-			<!-- <button type="button" class="">Додати анкету</button>
-			<button type="button" class="btn btn-primary custom-button-blue">Всі студенти</button>
-			<button type="button" class="btn btn-primary custom-button-green">Архів анкет</button> -->
-		</div>
+	
 
 
 		<div class="inventory-table" style="display:none;">
@@ -156,7 +161,7 @@
 					$table = '<table>' +
 				  				'<tr>' + 
 				    				'<th>Наявність анкети</th>' +
-				    				'<th>ПІП студента</th>' +
+				    				'<th>ПІБ студента</th>' +
 				    				'<th>Операції</th>' +
 				  				'</tr>';
 					for (var key in $parse_json) {
@@ -169,7 +174,7 @@
 				    			'<td>'+
 							    	'<div class="inline-flex" style="display: inline-flex;">'+
 							    		'<a href="/admin/editStudent/student_id?student_id='+$parse_json[key]['_id']+'" class="icon-inventory"><img src="/img/edit.svg"></a>'+
-							    		'<a href="javascript:void(0)" onclick="clearFormStudents(`'+$parse_json[key]['_id']+'`, `'+$parse_json[key]['groupId']+'`)" class="icon-inventory"><img src="/img/delete.svg"></a>'+
+							    		'<a href="javascript:void(0)" onclick="clearFormStudents(`'+$parse_json[key]['_id']+'`, `'+$parse_json[key]['groupId']+'`)" class="icon-inventory" title="Очистити анкету для студента"><img src="/img/delete.svg"></a>'+
 							    	'</div>'+
 			    				'</td></tr>';
 					  }else{
@@ -178,7 +183,7 @@
 				    			'<td>'+
 							    	'<div class="inline-flex" style="display: inline-flex;">'+
 							    		'<a href="/admin/editStudent/student_id?student_id='+$parse_json[key]['_id']+'" class="icon-inventory"><img src="/img/edit.svg"></a>'+
-							    		'<a href="javascript:void(0)" onclick="clearFormStudents(`'+$parse_json[key]['_id']+'`, `'+$parse_json[key]['groupId']+'`)" class="icon-inventory"><img src="/img/delete.svg"></a>'+
+							    		'<a href="javascript:void(0)" onclick="clearFormStudents(`'+$parse_json[key]['_id']+'`, `'+$parse_json[key]['groupId']+'`)" class="icon-inventory" title="Очистити анкету для студента"><img src="/img/delete.svg"></a>'+
 							    	'</div>'+
 			    				'</td></tr>';
 					  }
@@ -216,7 +221,7 @@
 				},    
 				success: function(){  
 				 	selectGroup($group_id);
-				 	
+
 					//window.location.reload();
 				}
 			});  
