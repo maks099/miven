@@ -143,13 +143,14 @@
 				  $("#dataStudents #name").css('border', '1px solid #E7E9EB');
 				}, 3000);
 			}else{
+				alert($('#dataStudents #login').val());
 				$.ajax({ 
 				url: '/updateStudentData',        
 				method: 'post',             
 				dataType: 'html',          
 				data: {
 					student_id:  $('#select_students').val(),
-					login: $('#select_students').val(),
+					login: $('#dataStudents #login').val(),
 					password: $('#dataStudents #password').val(),
 					name: $('#dataStudents #name').val()
 				},    
