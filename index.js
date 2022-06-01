@@ -57,10 +57,11 @@ app.post('/addStudent', studentController.addStudent)
 app.get('/getStudentById/:student_id', studentController.getById)
 app.post('/updateStudentForm', studentController.updateForm)
 app.post('/showAllStudentsInGroup', studentController.getByGroupId)
-
-/*  new functions   */
 app.post('/clearFormStudents', studentController.clearFormStudents)
 app.get('/admin/editStudent/:student_id', studentController.showEditPage)
+
+/*  new functions   */
+app.post('/updateStudentData', studentController.updateStudentData)
 
 
 // forms work
