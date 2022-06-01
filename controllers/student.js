@@ -94,23 +94,34 @@ module.exports = {
                 password,
                 name
             } = req.body;
-            console.log(student_id)
-            console.log(login)
-            console.log(password)
-            console.log(name)
-            const newPass = await bcrypt.hash(password, 10);
-            student.findByIdAndUpdate(student_id,
-                {
-                    name: name,
-                    login: login,
-                    password: newPass
+            if(password != 'old'){
+                const newPass = await bcrypt.hash(password, 10);
+                student.findByIdAndUpdate(student_id,
+                    {
+                        name: name,
+                        login: login,
+                        password: newPass
+                    })
+                .then(() => {
+                    res.status(200).send('catch me')
                 })
-            .then(() => {
-                res.status(200).send('catch me')
-            })
-            .catch((error) => {
-                res.status(500).json(error)
-            })
+                .catch((error) => {
+                    res.status(500).json(error)
+                })
+            } else {
+                student.findByIdAndUpdate(student_id,
+                    {
+                        name: name,
+                        login: login
+                    })
+                .then(() => {
+                    res.status(200).send('catch me')
+                })
+                .catch((error) => {
+                    res.status(500).json(error)
+                })
+            }
+          
           
    
     }
