@@ -64,6 +64,7 @@ app.post('/updateStudentData', studentController.updateStudentData)
 
 /* new */
 app.get('/admin/allStudents', studentController.getAll)
+app.post('/deleteStudents', studentController.deleteOne)
 
 // forms work
 app.post('/saveAdminForm', studentController.saveForm)

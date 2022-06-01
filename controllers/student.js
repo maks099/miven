@@ -128,5 +128,12 @@ module.exports = {
         const groups = await group.find();
         const students = await student.find();
         res.render('pages/admin/allStudents', { groups, students });
+    },
+
+    deleteOne: async(req, res) => {
+        console.log(req.body.student_id)
+        student.findByIdAndDelete(req.body.student_id)
+        .then(() => res.status(200).send('billie ash'))
+        .catch((error) => res.status(500).send(error))
     }
 }
