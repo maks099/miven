@@ -291,12 +291,23 @@
 	
 
 
+	function addArchive($student_id,$student_name) {
+		$.ajax({ 
+				url: '/addArchive',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					student_id:  $student_id
+				},    
+				success: function(){  
+				 	selectGroup($group_id);
 
+					
+				}
+			}); 
+	}
 	function saveFile($student_id,$student_name) {
 		
-
-
-		//alert($student_id);
 		$my_host = window.location.origin;
 		$.ajax({ 
 				url: $my_host+'/getStudentById/:student_id?student_id='+$student_id,          
