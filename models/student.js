@@ -24,6 +24,9 @@ studentSchema = new Schema({
     },
     form: {
        type: String
+    },
+    archive: {
+        type: String
     }
 });
 

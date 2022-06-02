@@ -135,5 +135,13 @@ module.exports = {
         student.findByIdAndDelete(req.body.student_id)
         .then(() => res.status(200).send('billie ash'))
         .catch((error) => res.status(500).send(error))
+    },
+
+    addArchive: async(req, res) => {
+        console.log('add to archive')
+        const student_id = req.body.student_id;
+        student.findOneAndUpdate({ _id: student_id }, { archive: 'true' })
+            .then(() => res.status(200).send('elon'))
+            .catch((error) => res.status(500).json(error))
     }
 }
