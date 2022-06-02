@@ -69,6 +69,7 @@ app.post('/deleteStudents', checkTeacher, studentController.deleteOne)
 
 /* new */
 app.post('/addArchive', checkTeacher, studentController.addArchive)
+app.post('/searchStudents', checkTeacher, studentController.search)
 
 // forms work
 app.post('/saveAdminForm', checkTeacher, studentController.saveForm)

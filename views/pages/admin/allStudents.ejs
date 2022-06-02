@@ -158,9 +158,10 @@
 				data: {
 					search:  $data
 				},    
-				success: function(){  
+				success: function(result){ 
+					console.log(result) 
 				 	//selectGroup($group_id);
-				 	alert(data);
+				 	alert(result);
 					
 				}
 			}); 

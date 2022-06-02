@@ -143,5 +143,14 @@ module.exports = {
         student.findOneAndUpdate({ _id: student_id }, { archive: 'true' })
             .then(() => res.status(200).send('elon'))
             .catch((error) => res.status(500).json(error))
+    },
+
+    search: async(req, res) => {
+        const userInput = req.body.search;
+        console.log(userInput)
+        student.find({"name" : {$regex : userInput}})
+        .then((data) => res.status(200).send(data))
+        .catch((error) => res.status(500).send(error))
+        
     }
 }
