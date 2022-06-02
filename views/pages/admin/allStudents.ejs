@@ -2,7 +2,7 @@
 
 <style type="text/css">
 	.filter{
-		margin-top: 20px;
+		/*margin-top: 20px;*/
 	}
 	#mainTitle{
 		border-bottom: 3px solid #83D689;
@@ -100,6 +100,8 @@
 	<p><h4 id="mainTitle">Всі студенти</h4></p>
 	
 	<p>
+		<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 		<div class="filter">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -115,6 +117,21 @@
 				</div>
 			</div>
 		</div>
+		</div>	
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">	
+			<form class="form-inline my-2 my-lg-0" style="float: right;padding-top: 20px;">
+	      <input class="form-control mr-sm-2" type="search" placeholder="Антонов Сергій" id="input-search-student" aria-label="Search">
+	      <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="searchStudent()">Пошук</button>
+	    </form>
+		</div>
+
+		
+
+		
+
+		
+
+
 		<hr>
 	
 
@@ -132,6 +149,22 @@
 
 
 <script type="text/javascript">
+	function searchStudent(){
+		$data = $('#input-search-student').val();
+		$.ajax({ 
+				url: '/searchStudents',        
+				method: 'post',             
+				dataType: 'html',          
+				data: {
+					search:  $data
+				},    
+				success: function(){  
+				 	//selectGroup($group_id);
+				 	alert(data);
+					
+				}
+			}); 
+	}
 	function selectGroup($ids){
 		if($ids !== ""){
 			$.ajax({ 
