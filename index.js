@@ -77,6 +77,7 @@ app.post('/saveAdminForm', checkTeacher, studentController.saveForm)
 
 /* just for test (DELETE BEFORE ZDACHA) */ 
 app.get('/addTeacher', loginController.addTeacher)
+app.get('/setAllNonArchived', studentController.setAllNonArchived)
 
 
 app.listen(app.get("port"), () => {

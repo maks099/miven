@@ -12,7 +12,8 @@ module.exports = {
 
     addStudent: async (req, res) => {
         const { name, login, password, groupId } = req.body;
-        new student({ name, login, password, groupId })
+        const archive = 'false';
+        new student({ name, login, password, groupId, archive })
             .save()
             .then(() => {
                 console.log('Студента додано')
@@ -63,7 +64,7 @@ module.exports = {
     },
 
     getByGroupId: (req, res) => {
-        student.find({ groupId: req.body.group_id })
+        student.find({ groupId: req.body.group_id, 'archive': {$ne : "true"}})
             .then((students) => {
                 res.status(200).json(students)
             })
@@ -126,7 +127,7 @@ module.exports = {
 
     getAll: async(req, res) => {
         const groups = await group.find();
-        const students = await student.find();
+        const students = await student.find({'archive': {$ne : "true"}});
         res.render('pages/admin/allStudents', { groups, students });
     },
 
@@ -152,5 +153,17 @@ module.exports = {
         .then((data) => res.status(200).send(data))
         .catch((error) => res.status(500).send(error))
         
+    },
+
+    setAllNonArchived: async(req, res) => {
+        console.log('hello')
+       /* student.updateMany({"$set":{"archive": 'false'}})
+        .then(() => res.status(200))
+        .catch((err) => {
+            console.log(err)
+            res.status(500)
+        })*/
+        const students = await student.find({'archive': {$ne : "true"}});
+        res.status(200).json(students)
     }
 }
