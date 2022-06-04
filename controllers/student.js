@@ -156,14 +156,16 @@ module.exports = {
     },
 
     setAllNonArchived: async(req, res) => {
-        console.log('hello')
-       /* student.updateMany({"$set":{"archive": 'false'}})
-        .then(() => res.status(200))
-        .catch((err) => {
-            console.log(err)
-            res.status(500)
-        })*/
         const students = await student.find({'archive': {$ne : "true"}});
         res.status(200).json(students)
-    }
+    },
+
+    getArchivedStudents: async (req, res) => {
+        const groups = await group.find();
+        const students = await student.find({'archive': 'true'});
+        console.log(students)
+        res.render('pages/archivedStudents', { groups, students });
+    },
 }
+
+

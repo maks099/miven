@@ -67,9 +67,12 @@ app.post('/updateStudentData', studentController.updateStudentData)
 app.get('/admin/allStudents', checkTeacher, studentController.getAll)
 app.post('/deleteStudents', checkTeacher, studentController.deleteOne)
 
-/* new */
 app.post('/addArchive', checkTeacher, studentController.addArchive)
 app.post('/searchStudents', checkTeacher, studentController.search)
+
+/* new */
+app.get('/admin/archiveStudents', checkTeacher, studentController.getArchivedStudents)
+
 
 // forms work
 app.post('/saveAdminForm', checkTeacher, studentController.saveForm)
