@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 module.exports = {
     show: async (req, res) => {
         const groups = await group.find();
-        res.render('pages/addStudent', { groups });
+        res.render('pages/allOperation', { groups });
     },
 
 

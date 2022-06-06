@@ -53,9 +53,9 @@ app.get('/admin/create-inventory', checkTeacher, adminCreateInventoryController.
 app.get('/admin', checkTeacher, adminMainController.viewAllInventory);
 
 // groups and student management
-app.get('/addGroup', checkTeacher, groupController.show)
+//app.get('/addGroup', checkTeacher, groupController.show)
 app.post('/addGroup', checkTeacher, groupController.addGroup)
-app.get('/addStudent', checkTeacher, studentController.show)
+//app.get('/addStudent', checkTeacher, studentController.show)
 app.post('/addStudent',  checkTeacher,studentController.addStudent)
 app.get('/getStudentById/:student_id', studentController.getById)
 app.post('/updateStudentForm', studentController.updateForm)
@@ -72,6 +72,15 @@ app.post('/searchStudents', checkTeacher, studentController.search)
 
 /* new */
 app.get('/admin/archiveStudents', checkTeacher, studentController.getArchivedStudents)
+
+
+
+/*ya*/
+app.get('/admin/allOperation', checkTeacher, studentController.show)
+/*ya*/
+
+
+
 
 
 // forms work
