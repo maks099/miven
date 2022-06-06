@@ -1,13 +1,173 @@
-<form action="/addStudent" method="post">
-    <input name="login" placeholder="Логін студента" type="text" required minlength="4">
-    <input name="password" placeholder="Пароль студента" type="password" required minlength="4">
-    <input name="name" placeholder="ПІБ" type="text" required minlength="4">
-    <select name="groupId" required>
-        <% for(j=0; j < groups.length; j++){ %>
-            <option value='<%-groups[j]._id%>'>
-                <%= groups[j].name %>
-            </option>
-            <% } %>
-    </select>
-    <input type="submit" value="Додати студента">
-</form>
+<%- include('../include/header') %>
+
+<div class="container">
+      <style type="text/css">
+            .block-form{
+             
+                
+                display: block;
+                margin: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+             
+
+            }
+            .block-form form input{
+                width: 100%;
+                margin-bottom: 10px;
+                border: 1px solid #E7E9EB;
+                padding: 10px;
+
+            }  
+             .block-form form select{
+                width: 100%;
+                margin-bottom: 10px;
+                border: 1px solid #E7E9EB;
+                padding: 10px;
+
+            }  
+            .block-form .title-form{
+                text-align: center;
+                color: #455A64;
+            }
+            .block-form form label{
+                line-height: 5px;
+                 color: #455A64;
+            }
+            .block-form .block-form-header{
+                padding: 20px;
+                background: #E7E9EB;
+            } 
+            .block-form .block-form-body{
+                padding: 20px;
+                border: 1px solid #E7E9EB;
+            } 
+
+            @media(max-width: 767px){
+            .block-form{
+                width: 100%;
+            }
+            }
+
+        </style>
+
+
+
+   
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                 <div class="block-form">
+                     <div class="block-form-header">Створення студента</div>
+                     <div class="block-form-body">
+                     <form action="/addStudent" method="post" id="addStudent">
+                        <label for="login">Логін:</label>
+                        <input name="login" placeholder="antonowserhiy" type="text" id="login" required minlength="4">
+                         <label for="password">Пароль:</label>
+                        <input name="password" placeholder="********" type="password" id="password" required minlength="4">
+                         <label for="pib">ПІБ:</label>
+                        <input name="name" placeholder="Антонов Сергій Степанович" type="text" required minlength="4" id="pib">
+                          <label for="group">Група:</label>  
+                        <select name="groupId" required id="group">
+                            <option></option>
+                            <% for(j=0; j < groups.length; j++){ %>
+                                <option value='<%-groups[j]._id%>'>
+                                    <%= groups[j].name %>
+                                </option>
+                                <% } %>
+                        </select>
+                        <input type="button" value="Додати студента" class="my-custom-button" onclick="addStudent()">
+                    </form>
+                </div>
+            </div>
+     </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                 <div class="block-form">
+                    <div class="block-form-header">Створення групи</div>
+                    <div class="block-form-body">
+                      <form action="/addGroup" method="post" id="addGroup">
+                        <label for="group">Група:</label>
+                        <input name="name" placeholder="КН-12" type="text" id="group" required minlength="4" >
+                        <input type="button" value="Додати групу" class="my-custom-button" id="group" onclick="addGroup()">
+                        
+
+                    </form>
+                    </div>
+            </div>
+        
+
+        </div>
+
+        <script type="text/javascript">
+            function addStudent(){
+                 if($('#addStudent #login').val() ==""){
+                    $("#addStudent #login").css('border', '1px solid red');   
+                    setTimeout(function() {
+                      $("#addStudent #login").css('border', '1px solid #E7E9EB');
+                    }, 2000);
+
+                }else if($('#addStudent #password').val() ==""){
+                    $("#addStudent #password").css('border', '1px solid red');   
+                    setTimeout(function() {
+                      $("#addStudent #password").css('border', '1px solid #E7E9EB');
+                    }, 2000);
+
+                }else if($('#addStudent #pib').val() ==""){
+                    $("#addStudent #pib").css('border', '1px solid red');   
+                    setTimeout(function() {
+                      $("#addStudent #pib").css('border', '1px solid #E7E9EB');
+                    }, 2000);
+
+                }else if($('#addStudent #group').val() ==""){
+                    $("#addStudent #group").css('border', '1px solid red');   
+                    setTimeout(function() {
+                      $("#addStudent #group").css('border', '1px solid #E7E9EB');
+                    }, 2000);
+
+                }else{
+                    $.ajax({ 
+                        url: '/addStudent',        
+                        method: 'post',             
+                        dataType: 'html',  
+                        data:{
+                            login: $('#addStudent #login').val(),
+                            password: $('#addStudent #password').val(),
+                            name: $('#addStudent #pib').val(),
+                            groupId: $('#addStudent #group').val()
+                        },      
+                        success: function(data){ 
+                            window.location.reload();
+                            
+                        }
+                    }); 
+                }
+            }
+            function addGroup(){
+                if($('#addGroup #group').val() ==""){
+                    $("#addGroup #group").css('border', '1px solid red');   
+                    setTimeout(function() {
+                      $("#addGroup #group").css('border', '1px solid #E7E9EB');
+                    }, 2000);
+
+                }else{
+                    $.ajax({ 
+                        url: '/addGroup',        
+                        method: 'post',             
+                        dataType: 'html',  
+                        data:{
+                            name: $('#addGroup #group').val()
+                        },      
+                        success: function(data){ 
+                            window.location.reload();
+                            
+                        }
+                    }); 
+                }
+            }
+
+        </script>      
+       
+
+      
+   
+</div>  
