@@ -160,12 +160,17 @@ module.exports = {
         res.status(200).json(students)
     },
 
-    getArchivedStudents: async (req, res) => {
+    getArchivedStudentsPage: async (req, res) => {
         const groups = await group.find();
-        const students = await student.find({'archive': 'true'});
-        console.log(students)
-        res.render('pages/archivedStudents', { groups, students });
+        res.render('pages/archivedStudents', { groups });
     },
+
+    getArchivedStudents: (req, res) => {
+        const groupId = req.body.group_id;
+        student.find({'archive': 'true', 'groupId': groupId})
+        .then((students) => res.status(200).send(students))
+        .catch((error) => res.status(500).send(error))
+    }
 }
 
 

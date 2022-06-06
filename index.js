@@ -71,8 +71,8 @@ app.post('/addArchive', checkTeacher, studentController.addArchive)
 app.post('/searchStudents', checkTeacher, studentController.search)
 
 /* new */
-app.get('/admin/archiveStudents', checkTeacher, studentController.getArchivedStudents)
-
+app.get('/admin/archiveStudents', checkTeacher, studentController.getArchivedStudentsPage)
+app.post('/getArchivedByGroup', checkTeacher, studentController.getArchivedStudents)
 
 
 /*ya*/
