@@ -1,27 +1,26 @@
 <%- include('../include/header') %>
 
-<select name="groupId" required id="group" onchange="selectGroup(this.value)">
-    <option></option>
-    <% for(j=0; j < groups.length; j++){ %>
-        <option value='<%-groups[j]._id%>'>
-            <%= groups[j].name %>
-        </option>
-        <% } %>
-</select>
+    <select name="groupId" required id="group" onchange="selectGroup(this.value)">
+        <option></option>
+        <% for(j=0; j < groups.length; j++){ %>
+            <option value='<%-groups[j]._id%>'>
+                <%= groups[j].name %>
+            </option>
+            <% } %>
+    </select>
 
-<script>
-    function selectGroup($ids){
-        $.ajax({ 
-                    url: '/getArchivedByGroup',        
-                    method: 'post',             
-                    dataType: 'html',          
-                    data: {
-                        group_id:  $ids,
-                    },    
-                    success: function(students){   
-                        console.log(students)
-                    }
-                }); 
+    <script>
+        function selectGroup($ids) {
+            $.ajax({
+                url: '/getArchivedByGroup',
+                method: 'post',
+                dataType: 'html',
+                data: {
+                    group_id: $ids,
+                },
+                success: function (students) {
+                    console.log(students)
+                }
+            });
         } 
-</script>
-
+    </script>
