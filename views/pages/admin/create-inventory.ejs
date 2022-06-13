@@ -59,7 +59,7 @@
 
 
 		<div class="fieldsButton">
-			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('group')" id="addFields">Додати текстове поле</button>
+			<button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('group')" id="addFields">Додати поле в анкету</button>
 		</div>
 	
 		<div class="selectGroup" style="display: block;">
@@ -77,7 +77,7 @@
 			   
 			    </select>
 			  </div>
-			  <button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('students')">Далі</button>
+			  <button type="button" class="btn btn-primary my-custom-button" onclick="addTextField('type')">Далі</button>
 		</div>
 
 		<div class="selectStudents" style="display: none;">
@@ -152,12 +152,12 @@
 			}else if($vals == 'audit_form'){
 				$('#addFields').css('display', 'none');
 
-				if($("#select_students").val() == ""){
+				/*if($("#select_students").val() == ""){
 					$("#select_students").css('border', '1px solid red');	
 					setTimeout(function() {
 					  $("#select_students").css('border', '1px solid #E7E9EB');
-					}, 3000);
-				}else{
+					}, 3000);*/
+				/*}else{*/
 					$('.selectStudents').css('display', 'none');
 					$my_host = window.location.origin;
 					$students_id = $('#select_students :selected').val();
@@ -192,18 +192,19 @@
 						}
 					}); 
 
-				}
+				/*}*/
 
 				
 
 			}else if($vals == 'type'){
 				$('#addFields').css('display', 'none');
-				if($("#select_students").val() == ""){
+				$('.selectGroup').css('display', 'none');
+				/*if($("#select_students").val() == ""){
 					$("#select_students").css('border', '1px solid red');	
 					setTimeout(function() {
 					  $("#select_students").css('border', '1px solid #E7E9EB');
 					}, 3000);
-				}else{
+				}else{*/
 					$('.selectStudents').css('display', 'none');
 					$('.selectType').css('display', 'none');
 					   
@@ -212,7 +213,7 @@
 
 
 					$('.selectType').css('display', 'block');
-				}
+				/*}*/
 
 				
 
@@ -360,6 +361,10 @@
 
 		function saveForm() {
 			//alert();
+
+			if (window.confirm("Ця анкета стане загальною для всієї групи, тому якщо Ви збережете її то всі існуючі анкети в студентів цієї групи очищаться, рекомендуємо завантажити необхідні анкети, щоб запобігти їх видаленню, Ви дійсно бажаєте очистити всі старі анкети та зберегти нову?")) {
+ 
+
 			$form_data = $('.myCustomForm').wrap('<div/>').parent().html();
 			$group = $('#select_group').val();
 			$students = $('#select_students').val();
@@ -370,19 +375,20 @@
 			$new_form_data_with_button = $new_form_data_no_clear + '<button type="button" class="btn btn-primary my-custom-button" id="sendForm" onclick="sendForm()">Зберегти анкету</button>';
 
 			$.ajax({ 
-				url: '/saveAdminForm',        
+				url: '/saveAdminFormGroup',        
 				method: 'post',             
 				dataType: 'html',          
 				data: {
 					form_data:  $new_form_data_with_button,
-					//group_id: $group,
-					student_id: $students
+					group_id: $group
+					//student_id: $students
 				},    
 				success: function(data){  
 				window.location.reload(); 
 					//alert(data);
 				}
-			});     
+			});
+		}
 		}
 
 
