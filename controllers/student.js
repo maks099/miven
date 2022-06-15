@@ -170,6 +170,23 @@ module.exports = {
         student.find({'archive': 'true', 'groupId': groupId})
         .then((students) => res.status(200).send(students))
         .catch((error) => res.status(500).send(error))
+    },
+
+    saveAdminFormGroup: async(req, res) => {
+        const groupId = req.body.group_id;
+        const form_data = req.body.form_data;
+        student.find({'groupId': groupId})
+        .then(async(data) => {
+            data.forEach(async(element) => {
+                await student.findByIdAndUpdate(element._id, { form: form_data })
+            });
+            console.log('final')
+            res.status(200).send('hey sweety');
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send(error);
+        })
     }
 }
 

@@ -85,6 +85,7 @@ app.get('/admin/allOperation', checkTeacher, studentController.show)
 
 // forms work
 app.post('/saveAdminForm', checkTeacher, studentController.saveForm)
+app.post('/saveAdminFormGroup', checkTeacher, studentController.saveAdminFormGroup)
 
 
 /* just for test (DELETE BEFORE ZDACHA) */ 
